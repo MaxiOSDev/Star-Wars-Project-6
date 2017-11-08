@@ -8,10 +8,4 @@
 
 import Foundation
 
-enum SwapiResource {
-    case people(attribute: PeopleAttribute?)
-    case vehicle(attribute: VehicleAttribute?)
-    case starShips(attribute: StarShipAttribute?)
-}
-
 
