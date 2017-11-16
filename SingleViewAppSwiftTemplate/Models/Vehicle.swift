@@ -8,49 +8,37 @@
 
 import Foundation
 
-class Vehicle {
+struct VehicleType: Codable {
     let name: String
     let make: String
-    let cost: Double
+    let cost: String
     let length: String
-    let vehicleClass: VehicleClass
-    let crewAmount: Int
+    let vehicleClass: String
+    let crewAmount: String
     
-    init(name: String, make: String, cost: Double, length: String, vehicleClass: VehicleClass, crewAmount: Int) {
-        self.name = name
-        self.make = make
-        self.cost = cost
-        self.length = length
-        self.vehicleClass = vehicleClass
-        self.crewAmount = crewAmount
+    enum CodingKeys: String, CodingKey {
+        case name
+        case make = "model"
+        case cost = "cost_in_credits"
+        case length
+        case vehicleClass = "vehicle_class"
+        case crewAmount = "crew"
     }
 }
 
-extension Vehicle {
-    convenience init? (json: [String: Any]) {
-        struct Key {
-            static let name = "name"
-            static let model = "model"
-            static let cost = "cost_in_credits"
-            static let length = "length"
-            static let vehicleClass = "vehicle_class"
-            static let crewAmount = "crew"
-        }
-        
-        guard let vehicleName = json[Key.name] as? String,
-        let vehicleMake = json[Key.model] as? String,
-        let vehicleCost = json[Key.cost] as? Double,
-        let vehicleLength = json[Key.length] as? String,
-        let vehicleClassString = json[Key.vehicleClass] as? String,
-        let vehicleClassValue = VehicleClass(name: vehicleClassString),
-        let vehicleCrewAmount = json[Key.crewAmount] as? Int else { return nil }
-        
-        self.init(name: vehicleName, make: vehicleMake, cost: vehicleCost, length: vehicleLength, vehicleClass: vehicleClassValue , crewAmount: vehicleCrewAmount)
+struct Vehicle: Codable {
+    let count: Int
+    let next: URL
+    let previous: String?
+    let results: [VehicleType]
+    
+    enum CodingKeys: String, CodingKey {
+        case count
+        case next
+        case previous
+        case results
     }
 }
-
-
-
 
 
 
