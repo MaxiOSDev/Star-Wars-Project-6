@@ -25,7 +25,7 @@ class ViewController: UIViewController, CAAnimationDelegate {
     
     override func viewDidAppear(_ animated: Bool) {
         checkConnection()
-       // test()
+
     }
     
     override func didReceiveMemoryWarning() {

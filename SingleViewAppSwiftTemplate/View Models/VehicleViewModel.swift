@@ -9,6 +9,9 @@
 import Foundation
 import UIKit
 
+
+
+
 enum VehicleProfileItemType {
     case home
     case cost
@@ -37,7 +40,7 @@ class VehicleViewModeAttributeItem: VehicleItemViewModel {
 class VehicleViewModel: NSObject, UITableViewDataSource {
     
     var attributes = [VehicleItemViewModel]()
-    
+   
     override init() {
         super.init()
         let profileAttributes = JSONDownloader.vehilceAttributes
@@ -74,6 +77,7 @@ class VehicleViewModel: NSObject, UITableViewDataSource {
                 for attribute in item.attributes {
                     if pickerIdentifier == attribute.name {
                         cell.valueLabel.text = attribute.cost
+                        
                     }
                 }
             }
@@ -88,7 +92,7 @@ class VehicleViewModel: NSObject, UITableViewDataSource {
                         
                             let doubleHeight = Double(attribute.length)
                             if let doubleHeight = doubleHeight {
-                            print(cell.valueLabel.text)
+                            
                             let meterLength =  Measurement(value: doubleHeight, unit: UnitLength.meters)
                             cell.valueLabel.text = "\(meterLength)"
                         }

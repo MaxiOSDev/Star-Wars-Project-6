@@ -18,9 +18,19 @@ class JSONDownloader {
     static let planetResouce: String = "planets/"
     static let planetPages: [String] = ["1/","2/","8/", "20/"]
     static var name: String?
+    
     static var profileAttributes = [Attribute]()
     static var vehilceAttributes = [VehicleType]()
     static var starshipAttributes = [StarshipType]()
+    
+    static var starshipLengthDictonary = [String: String]()
+    static var vehicleLengthDictionary = [String: String]()
+    static var characterLengthDictionary = [String: String]()
+    static var characterDictionary = [String: Double]()
+    static var vehicleDictionary = [String: Double]()
+    static var starshipDictionary = [String: Double]()
+
+
 }
 
 // Character JSON
@@ -36,6 +46,14 @@ extension JSONDownloader {
                 for character in characters {
                     
                     dump("\(character.name)\(character.homeWorld)")
+                    
+                    characterLengthDictionary.updateValue(character.height!, forKey: character.name)
+                    for (key, value) in characterLengthDictionary {
+                        if let valueDouble = Double(value) {
+                            characterDictionary.updateValue(valueDouble, forKey: key)
+                            
+                        }
+                    }
                     profileAttributes.append(character)
                     
                     for page in planetPages {
@@ -79,6 +97,7 @@ extension JSONDownloader {
                 print("\(error)")
             }
         }
+        
         task.resume()
         
         URLSession.shared.dataTask(with: jsonString) { data, response, error in
@@ -108,6 +127,14 @@ extension JSONDownloader {
     
                 for vehicle in vehicles {
                     dump("\(vehicle.name)\(vehicle.length)")
+                    
+                    vehicleLengthDictionary.updateValue(vehicle.length, forKey: vehicle.name)
+                    for (key, value) in vehicleLengthDictionary {
+                        if let valueDouble = Double(value) {
+                            vehicleDictionary.updateValue(valueDouble, forKey: key)
+                            
+                        }
+                    }
                     vehilceAttributes.append(vehicle)
                     
                 }
@@ -165,6 +192,12 @@ extension JSONDownloader {
                 for ship in starships {
                     dump("\(ship.name) & \(ship.length)")
                     
+                    starshipLengthDictonary.updateValue(ship.length, forKey: ship.name)
+                    for (key, value) in starshipLengthDictonary {
+                        if let valueDouble = Double(value) {
+                            starshipDictionary.updateValue(valueDouble, forKey: key)
+                        }
+                    }
                     starshipAttributes.append(ship)
                     
                 }

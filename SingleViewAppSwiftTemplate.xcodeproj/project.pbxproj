@@ -131,7 +131,6 @@
 				FB50E0471FB3A979005A3B3D /* Networking */,
 				FB50E0331FB33F4E005A3B3D /* View Models */,
 				FB891C791FB6457300809E53 /* Views */,
-				FB50E0321FB33F42005A3B3D /* DataSources */,
 				FB50E0311FB33F37005A3B3D /* Controllers */,
 				FB50E0301FB33F2A005A3B3D /* Models */,
 				3A8AADCC1DF9B85E00A2B931 /* Main.storyboard */,
@@ -178,13 +177,6 @@
 				FB891C771FB623D700809E53 /* CharacterViewController.swift */,
 			);
 			path = Controllers;
-			sourceTree = "<group>";
-		};
-		FB50E0321FB33F42005A3B3D /* DataSources */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = DataSources;
 			sourceTree = "<group>";
 		};
 		FB50E0331FB33F4E005A3B3D /* View Models */ = {

@@ -31,7 +31,8 @@ class DataViewController: UIViewController {
     
     @IBOutlet weak var nameLabel: UILabel!
     
-
+    @IBOutlet weak var convertCurrencyLabel: UIButton!
+    
     
     
     
@@ -43,6 +44,11 @@ class DataViewController: UIViewController {
         dataSource()
         setNavBarTitle()
         setCustomBackImage()
+        hideCurrencyConverter()
+        pickerView(dataPickerView, didSelectRow: 0, inComponent: 0)
+        dataPickerView.selectRow(0, inComponent: 0, animated: true)
+        
+        dataTableView.reloadData()
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController?.navigationBar.shadowImage = UIImage()
         
@@ -59,7 +65,9 @@ class DataViewController: UIViewController {
         navigationController?.navigationBar.backIndicatorImage = #imageLiteral(resourceName: "backIcon")
         navigationController?.navigationBar.backIndicatorTransitionMaskImage = #imageLiteral(resourceName: "backIcon")
     }
+    
     @IBAction func convertUnit(_ sender: Any) {
+        
         if dataType == DataType.character || dataType == DataType.vehicle {
             characterUnitConverter()
         } else if dataType == DataType.starship {
@@ -67,6 +75,22 @@ class DataViewController: UIViewController {
         }
         
     }
+    
+    @IBAction func convertCurrency(_ sender: UIButton) {
+        let indexPath = IndexPath(row: 1, section: 0)
+        let cell = self.dataTableView.cellForRow(at: indexPath) as! CostHomeCell
+        
+        if cell.valueLabel.text == "unknown" {
+            let alert = UIAlertController(title: "Error!", message: "Cannot Convert Unknown Credit", preferredStyle: .alert)
+            let defaultAction = UIAlertAction(title: "Understood", style: .default, handler: nil)
+            alert.addAction(defaultAction)
+            self.present(alert, animated: true, completion: nil)
+        }
+        
+        showAlertWithTwoTextFields()
+    }
+    
+    
     
 }
 
@@ -79,6 +103,8 @@ extension DataViewController: UIPickerViewDelegate, UIPickerViewDataSource, UITa
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
+    
+    
     
     func pickerView(_
         pickerView: UIPickerView,numberOfRowsInComponent component: Int) -> Int {
@@ -106,39 +132,171 @@ extension DataViewController: UIPickerViewDelegate, UIPickerViewDataSource, UITa
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         
         if dataType == DataType.character {
-            pickerIdentifier = characterValues[row].name
+            let indexPath = IndexPath(row: 1, section: 0)
+            if let cell = self.dataTableView.cellForRow(at: indexPath) as? CostHomeCell {
+                pickerIdentifier = characterValues[row].name
+                cell.usdLabel.isHidden = true
+                cell.creditsLabel.isHidden = true
+            }
         } else if dataType == DataType.vehicle {
-            pickerIdentifier = vehicleValues[row].name
+            let indexPath = IndexPath(row: 1, section: 0)
+            if let cell = self.dataTableView.cellForRow(at: indexPath) as? CostHomeCell {
+                pickerIdentifier = vehicleValues[row].name
+                hideCurrencyConverter()
+                cell.creditsLabel.textColor = .white
+                cell.usdLabel.textColor = .lightGray
+                convertCurrencyLabel.isEnabled = true
+            }
         } else {
-            pickerIdentifier = shipValues[row].name
+            let indexPath = IndexPath(row: 1, section: 0)
+            if let cell = self.dataTableView.cellForRow(at: indexPath) as? CostHomeCell {
+                pickerIdentifier = shipValues[row].name
+                hideCurrencyConverter()
+                cell.creditsLabel.textColor = .white
+                cell.usdLabel.textColor = .lightGray
+                convertCurrencyLabel.isEnabled = true
+            }
+            
         }
         
+
         
             nameLabel.text = pickerIdentifier
+        
             dataTableView.reloadData()
         
     }
+    
+    
+
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         cell.backgroundColor = .clear
     }
     
+    
+    
+    
+        func showAlertWithTwoTextFields() {
+            
+            let alertController = UIAlertController(title: "Set Exchange Rate", message: "Set Galatic Credit Rate to USD", preferredStyle: .alert)
+            
+            let saveAction = UIAlertAction(title: "Convert", style: .default, handler: {
+                alert -> Void in
+                
+                let eventNameTextField = alertController.textFields![0] as UITextField
+                eventNameTextField.keyboardType = UIKeyboardType.decimalPad
+                
+                print("firstName \(String(describing: eventNameTextField.text))")
+                
+                
+                    let indexPath = IndexPath(row: 1, section: 0)
+                    let cell = self.dataTableView.cellForRow(at: indexPath) as! CostHomeCell
+                
+                    let creditAmount = Int(Double(cell.valueLabel.text!)!)
+                    print("Credit Amount \(creditAmount)")
+                    let exchangeRate = Int(Double(eventNameTextField.text!)!)
+                    print("Exchange Rate \(exchangeRate)")
+                    cell.valueLabel.text = "\(creditAmount / exchangeRate)"
+                    cell.usdLabel.textColor = UIColor.white
+                    cell.creditsLabel.textColor = UIColor.lightGray
+                    self.convertCurrencyLabel.isEnabled = false
+                
+                
+                if eventNameTextField.text != ""{
+                    
+                }else{
+                    // self.showAlertMessageToUser(title: "Alert", messageToUser: "Fields should not be empty, Please enter given info...")
+                    // Show Alert Message to User As per you want
+                }
+                
+            })
+            
+            let cancelAction = UIAlertAction(title: "Cancel", style: .default, handler: {
+                (action : UIAlertAction!) -> Void in
+                
+            })
+            
+            alertController.addTextField { (textField : UITextField!) -> Void in
+                textField.placeholder = "Enter Exchange Rate"
+                textField.keyboardType = UIKeyboardType.numberPad
+            }
+            
+            alertController.addAction(saveAction)
+            alertController.addAction(cancelAction)
+            
+            self.present(alertController, animated: true, completion: nil)
+        }
+    
+    
     // Helper Methods
     
-    func smallest() {
+    func hideCurrencyConverter() {
+       
         if dataType == DataType.character {
-            
+            convertCurrencyLabel.isHidden = true
+        }
+        
+        
+    }
+    
+    func smallestCharacter() {
+        if dataType == DataType.character {
+            let smallest = JSONDownloader.characterDictionary.min { a, b in a.value < b.value }
+            smallestCVSLabel.text = smallest?.key
         }
     }
+    
+    func largestCharacter() {
+        if dataType == DataType.character {
+            let largest = JSONDownloader.characterDictionary.max { a, b in a.value < b.value }
+            largestCVSLabel.text = largest?.key
+        }
+    }
+    
+    func smallestShip() {
+        if dataType == DataType.starship {
+            let smallest = JSONDownloader.starshipDictionary.min { a, b in a.value < b.value }
+            smallestCVSLabel.text = smallest?.key
+        }
+    }
+    
+    func largestShip() {
+        if dataType == DataType.starship {
+            let largest = JSONDownloader.starshipDictionary.max { a, b in a.value < b.value }
+            largestCVSLabel.text = largest?.key
+        }
+    }
+    
+    func smallestVehicle() {
+        if dataType == DataType.vehicle {
+            let largest = JSONDownloader.vehicleDictionary.min { a, b in a.value < b.value }
+            smallestCVSLabel.text = largest?.key
+        }
+    }
+    
+    func largestVehicle() {
+        if dataType == DataType.vehicle {
+            let largest = JSONDownloader.vehicleDictionary.max { a, b in a.value < b.value }
+            largestCVSLabel.text = largest?.key
+        }
+    }
+    
+    
     
     func dataSource() {
         if dataType == DataType.character {
             dataTableView.dataSource = viewModel
-            
+            smallestCharacter()
+            largestCharacter()
         } else if dataType == DataType.vehicle {
             dataTableView.dataSource = vehicleViewModel
+            smallestVehicle()
+            largestVehicle()
         } else {
             dataTableView.dataSource = shipViewModel
+            smallestShip()
+            largestShip()
         }
         
         print(" I AM THE DATA SOURCE \(dataTableView.dataSource)")
@@ -161,10 +319,10 @@ extension DataViewController: UIPickerViewDelegate, UIPickerViewDataSource, UITa
         if cell.measurementTypeLabel.text == "Metric" {
             let unit = cell.valueLabel.text?.stringsMatchingRegularExpression(expression: "[-+]?\\d+.?\\d+")
             
-            print("HERE FOR UNIT \(unit)")
+
             if let unitValue = unit {
                 let doubleValue = Double(unitValue[0].numbers)
-                print("Double Value \(doubleValue)")
+
                 if let newDoubleValue = doubleValue {
                     let m = MeasurementFormatter()
                     m.numberFormatter.maximumFractionDigits = 2
@@ -184,7 +342,7 @@ extension DataViewController: UIPickerViewDelegate, UIPickerViewDataSource, UITa
             if unit?.count == 1 {
                 if let unitValue = unit {
                     let doubleValue = Double(unitValue[0])
-                    print("Double Value \(doubleValue)")
+      
                     if let newDoubleValue = doubleValue {
                         let m = MeasurementFormatter()
                         m.numberFormatter.maximumFractionDigits = 2
@@ -195,12 +353,12 @@ extension DataViewController: UIPickerViewDelegate, UIPickerViewDataSource, UITa
                 }
             } else {
                 var test =  "\(unit![0]).\(unit![1])"
-                print(test.numbers)
+
                 
-                print("HERE FOR UNIT \(unit)")
+
                 if let unitValue = unit {
                     let doubleValue = Double(test.numbers)
-                    print("Double Value \(doubleValue)")
+
                     if let newDoubleValue = doubleValue {
                         let m = MeasurementFormatter()
                         m.numberFormatter.maximumFractionDigits = 2
@@ -220,13 +378,14 @@ extension DataViewController: UIPickerViewDelegate, UIPickerViewDataSource, UITa
             if cell.measurementTypeLabel.text == "Metric" {
                 let unit = cell.valueLabel.text?.stringsMatchingRegularExpression(expression: "[-+]?\\d+.?\\d+")
                 
-                print("HERE FOR UNIT \(unit)")
+
                 if let unitValue = unit {
                     let doubleValue = Double(unitValue[0])
-                    print("Double Value \(doubleValue)")
+               
                     if let newDoubleValue = doubleValue {
                         let m = MeasurementFormatter()
                         m.numberFormatter.maximumFractionDigits = 2
+                        m.numberFormatter.minimumFractionDigits = 2
                         m.unitOptions = .providedUnit
                         cell.valueLabel.text =  m.string(from: Measurement(value: newDoubleValue.metersToFeet, unit: UnitLength.feet))
                         print("HEREA 2 \(newDoubleValue)")
@@ -237,10 +396,10 @@ extension DataViewController: UIPickerViewDelegate, UIPickerViewDataSource, UITa
             } else if cell.measurementTypeLabel.text == "Imperial"{
                 let unit = cell.valueLabel.text?.stringsMatchingRegularExpression(expression: "[-+]?\\d+.?\\d+")
                 
-                print("HERE FOR UNIT \(unit)")
+          
                 if let unitValue = unit {
                     let doubleValue = Double(unitValue[0])
-                    print("Double Value \(doubleValue)")
+               
                     if let newDoubleValue = doubleValue {
                         let m = MeasurementFormatter()
                         m.numberFormatter.maximumFractionDigits = 2
