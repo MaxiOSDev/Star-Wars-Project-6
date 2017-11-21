@@ -20,8 +20,11 @@ class DataViewController: UIViewController {
     let vehicleValues = JSONDownloader.vehilceAttributes
     let shipValues = JSONDownloader.starshipAttributes
     
+    var associateVehiclePVModel: AssociatedVehiclePV!
+    
     @IBOutlet weak var dataTableView: UITableView!
     @IBOutlet weak var dataPickerView: UIPickerView!
+
     
     @IBOutlet weak var smallestLabel: UILabel!
     @IBOutlet weak var largestLabel: UILabel!
@@ -33,6 +36,7 @@ class DataViewController: UIViewController {
     
     @IBOutlet weak var convertCurrencyLabel: UIButton!
     
+    @IBOutlet weak var backArrowButton: UIBarButtonItem!
     
     
     
@@ -41,17 +45,19 @@ class DataViewController: UIViewController {
         dataPickerView.delegate = self
         dataPickerView.dataSource = self
         dataTableView.delegate = self
+        associateVehiclePVModel = AssociatedVehiclePV()
+        associateVehiclePVModel.delegate = associateVehiclePVModel
+        associateVehiclePVModel.dataSource = associateVehiclePVModel
         dataSource()
         setNavBarTitle()
         setCustomBackImage()
         hideCurrencyConverter()
-        pickerView(dataPickerView, didSelectRow: 0, inComponent: 0)
-        dataPickerView.selectRow(0, inComponent: 0, animated: true)
-        
-        dataTableView.reloadData()
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController?.navigationBar.shadowImage = UIImage()
-        
+        DispatchQueue.main.async {
+            self.pickerView(self.dataPickerView, didSelectRow: 0, inComponent: 1)
+            self.dataTableView.reloadData()
+        }
         
     }
 
@@ -90,6 +96,9 @@ class DataViewController: UIViewController {
         showAlertWithTwoTextFields()
     }
     
+    @IBAction func dismissDataVC(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
+    }
     
     
 }
@@ -97,7 +106,7 @@ class DataViewController: UIViewController {
 extension DataViewController: UIPickerViewDelegate, UIPickerViewDataSource, UITableViewDelegate {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return 0
     }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {

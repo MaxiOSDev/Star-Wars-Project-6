@@ -9,14 +9,16 @@
 import Foundation
 import UIKit
 
+
+
 struct People: Codable {
-    let count: Int
-    let next: URL
+    let count: Int?
+    let next: String?
     let previous: String?
     let results: [Attribute]
     
     enum CodingKeys: String, CodingKey {
-        case count
+        case count = "count"
         case next
         case previous
         case results
@@ -24,13 +26,14 @@ struct People: Codable {
 }
 
 class Attribute: Codable {
-    var name: String
+    var name: String?
     var height: String?
     var hairColor: String?
     var eyeColor: String?
     var birthYear: String?
     var homeWorld: String?
-    
+    var vehicles: String?
+    var starships: String?
     enum CodingKeys: String, CodingKey {
         case name
         case height
@@ -38,16 +41,11 @@ class Attribute: Codable {
         case eyeColor = "eye_color"
         case birthYear = "birth_year"
         case homeWorld = "homeworld"
+        case vehicles
+        case starships
     }
     
-    init(json: [String: Any]) {
-        self.name = CodingKeys.name.rawValue
-        self.height = CodingKeys.height.rawValue
-        self.hairColor = CodingKeys.hairColor.rawValue
-        self.eyeColor = CodingKeys.eyeColor.rawValue
-        self.birthYear = CodingKeys.birthYear.rawValue
-        self.homeWorld = CodingKeys.homeWorld.rawValue
-    }
+    
 }
 
 struct Planet: Codable {

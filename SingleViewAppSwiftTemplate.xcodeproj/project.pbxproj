@@ -14,6 +14,8 @@
 		3A8AADD31DF9B85E00A2B931 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3A8AADD11DF9B85E00A2B931 /* LaunchScreen.storyboard */; };
 		3A8AADDE1DF9B85E00A2B931 /* SingleViewAppSwiftTemplateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8AADDD1DF9B85E00A2B931 /* SingleViewAppSwiftTemplateTests.swift */; };
 		3A8AADE91DF9B85E00A2B931 /* SingleViewAppSwiftTemplateUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8AADE81DF9B85E00A2B931 /* SingleViewAppSwiftTemplateUITests.swift */; };
+		FB08199F1FC392CA00BEC7E1 /* AssociatedVehiclePV.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB08199E1FC392CA00BEC7E1 /* AssociatedVehiclePV.swift */; };
+		FB0819A11FC3A43800BEC7E1 /* AssociatedPVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB0819A01FC3A43800BEC7E1 /* AssociatedPVCell.swift */; };
 		FB50E0351FB33F78005A3B3D /* Characters.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB50E0341FB33F78005A3B3D /* Characters.swift */; };
 		FB50E0371FB34082005A3B3D /* Objects.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB50E0361FB34082005A3B3D /* Objects.swift */; };
 		FB50E0391FB3430A005A3B3D /* Vehicle.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB50E0381FB3430A005A3B3D /* Vehicle.swift */; };
@@ -62,6 +64,8 @@
 		3A8AADE41DF9B85E00A2B931 /* SingleViewAppSwiftTemplateUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SingleViewAppSwiftTemplateUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A8AADE81DF9B85E00A2B931 /* SingleViewAppSwiftTemplateUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleViewAppSwiftTemplateUITests.swift; sourceTree = "<group>"; };
 		3A8AADEA1DF9B85E00A2B931 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FB08199E1FC392CA00BEC7E1 /* AssociatedVehiclePV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssociatedVehiclePV.swift; sourceTree = "<group>"; };
+		FB0819A01FC3A43800BEC7E1 /* AssociatedPVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssociatedPVCell.swift; sourceTree = "<group>"; };
 		FB50E0341FB33F78005A3B3D /* Characters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Characters.swift; sourceTree = "<group>"; };
 		FB50E0361FB34082005A3B3D /* Objects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Objects.swift; sourceTree = "<group>"; };
 		FB50E0381FB3430A005A3B3D /* Vehicle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vehicle.swift; sourceTree = "<group>"; };
@@ -185,6 +189,7 @@
 				FB891C7C1FB9DA1100809E53 /* CVSCellViewModel.swift */,
 				FB96DD9F1FBA5C0F00832D6A /* VehicleViewModel.swift */,
 				FB96DDA11FBA626C00832D6A /* StarshipViewModel.swift */,
+				FB08199E1FC392CA00BEC7E1 /* AssociatedVehiclePV.swift */,
 			);
 			path = "View Models";
 			sourceTree = "<group>";
@@ -206,6 +211,7 @@
 				FB96DD991FBA2BB700832D6A /* HeightLengthCell.swift */,
 				FB96DD9B1FBA2BC700832D6A /* ClassEyesCell.swift */,
 				FB96DD9D1FBA2BD300832D6A /* CrewHairCell.swift */,
+				FB0819A01FC3A43800BEC7E1 /* AssociatedPVCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -355,6 +361,7 @@
 				3A8AADCB1DF9B85E00A2B931 /* ViewController.swift in Sources */,
 				FB613A621FB9F89200519074 /* CVSCell.swift in Sources */,
 				FB50E03B1FB343D6005A3B3D /* StarShip.swift in Sources */,
+				FB0819A11FC3A43800BEC7E1 /* AssociatedPVCell.swift in Sources */,
 				FB96DD981FBA2BA500832D6A /* CostHomeCell.swift in Sources */,
 				FB50E0351FB33F78005A3B3D /* Characters.swift in Sources */,
 				FB50E0371FB34082005A3B3D /* Objects.swift in Sources */,
@@ -364,6 +371,7 @@
 				FB50E0391FB3430A005A3B3D /* Vehicle.swift in Sources */,
 				3A8AADC91DF9B85E00A2B931 /* AppDelegate.swift in Sources */,
 				FB96DDA41FBB797800832D6A /* ConnectivityChecker.swift in Sources */,
+				FB08199F1FC392CA00BEC7E1 /* AssociatedVehiclePV.swift in Sources */,
 				FB96DD9C1FBA2BC700832D6A /* ClassEyesCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

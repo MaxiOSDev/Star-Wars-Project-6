@@ -28,7 +28,7 @@ struct VehicleType: Codable {
 
 struct Vehicle: Codable {
     let count: Int
-    let next: URL
+    let next: String?
     let previous: String?
     let results: [VehicleType]
     

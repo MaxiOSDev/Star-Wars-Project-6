@@ -40,15 +40,15 @@ class CVSViewModel: NSObject, UITableViewDataSource {
     
     override init() {
         super.init()
-            let profileAttributes = JSONDownloader.profileAttributes
-            if !profileAttributes.isEmpty {
-                let attributesItem = ProfileViewModeAttributeItem(attributes: profileAttributes)
-                attributes.append(attributesItem)
+        let profileAttributes = JSONDownloader.profileAttributes
+        if !profileAttributes.isEmpty {
+            let attributesItem = ProfileViewModeAttributeItem(attributes: profileAttributes)
+            attributes.append(attributesItem)
         }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-       return 5
+        return 5
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -65,7 +65,7 @@ class CVSViewModel: NSObject, UITableViewDataSource {
                     }
                 }
             }
-                return cell
+            return cell
             
         } else if indexPath.row == 1 {
             let cell = tableView.dequeueReusableCell(withIdentifier: CostHomeCell.reuseIdentifier, for: indexPath) as! CostHomeCell
@@ -77,7 +77,7 @@ class CVSViewModel: NSObject, UITableViewDataSource {
                     }
                 }
             }
-                return cell
+            return cell
             
         } else if indexPath.row == 2 {
             let cell = tableView.dequeueReusableCell(withIdentifier: HeightCostCell.reuseIdentifier, for: indexPath) as! HeightCostCell
@@ -100,7 +100,7 @@ class CVSViewModel: NSObject, UITableViewDataSource {
                     }
                 }
             }
-                return cell
+            return cell
             
         } else if indexPath.row == 3 {
             let cell = tableView.dequeueReusableCell(withIdentifier: ClassEyesCell.reuseIdentifier, for: indexPath) as! ClassEyesCell
@@ -112,7 +112,7 @@ class CVSViewModel: NSObject, UITableViewDataSource {
                     }
                 }
             }
-                return cell
+            return cell
             
             
         } else if indexPath.row == 4 {
@@ -125,14 +125,13 @@ class CVSViewModel: NSObject, UITableViewDataSource {
                     }
                 }
             }
-                return cell
+            return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: CrewHairCell.reuseIdentifier, for: indexPath) as! CrewHairCell
             return cell
         }
     }
 }
-
 
 
 

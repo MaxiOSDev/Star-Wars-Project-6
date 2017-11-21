@@ -21,11 +21,9 @@ class ViewController: UIViewController, CAAnimationDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        checkConnection()
-
+        DispatchQueue.main.async {
+            self.checkConnection()
+        }
     }
     
     override func didReceiveMemoryWarning() {
@@ -34,16 +32,16 @@ class ViewController: UIViewController, CAAnimationDelegate {
     }
     
     @IBAction func characterDataBase(_ sender: UIButton) {
-        JSONDownloader.characterDownloader()
+        
         dataType = DataType.character
     }
     
     @IBAction func vehicleDataBase(_ sender: UIButton) {
-        JSONDownloader.vehilceDownload()
+        
         dataType = DataType.vehicle
     }
     @IBAction func starshipDataBase(_ sender: UIButton) {
-        JSONDownloader.starshipDownload()
+        
         dataType = DataType.starship
     }
     
@@ -82,9 +80,7 @@ class ViewController: UIViewController, CAAnimationDelegate {
         
     }
     
-    func test() {
-        JSONDownloader.starshipDownload()
-    }
+  
     
     func disableIconButtons() {
         let iconButtons = [characterIconButton, vehicleIconButton, starshipIconButton]

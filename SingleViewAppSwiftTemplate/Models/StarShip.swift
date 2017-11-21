@@ -28,7 +28,7 @@ struct StarshipType: Codable {
 
 struct Starship: Codable {
     let count: Int
-    let next: URL
+    let next: String?
     let previous: String?
     let results: [StarshipType]
     
