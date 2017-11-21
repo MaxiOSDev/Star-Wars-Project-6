@@ -92,9 +92,6 @@ class CVSViewModel: NSObject, UITableViewDataSource {
                             let centimeterHeight =  Measurement(value: doubleHeight, unit: UnitLength.centimeters)
                             let meterHeight = centimeterHeight.converted(to: UnitLength.meters)
                             cell.valueLabel.text = "\(meterHeight)"
-                            print(cell.valueLabel.text)
-                            
-                            
                             
                         }
                     }

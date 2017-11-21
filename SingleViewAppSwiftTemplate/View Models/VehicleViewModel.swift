@@ -57,7 +57,7 @@ class VehicleViewModel: NSObject, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let item = attributes[indexPath.section]
-        
+        print("\(attributes[indexPath.section])")
         if indexPath.row == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: CVSCell.reuseIdentifier, for: indexPath) as! CVSCell
             if let item = item as? VehicleViewModeAttributeItem  {

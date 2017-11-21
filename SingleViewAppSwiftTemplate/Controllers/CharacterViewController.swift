@@ -25,6 +25,8 @@ class DataViewController: UIViewController {
     @IBOutlet weak var dataTableView: UITableView!
     @IBOutlet weak var dataPickerView: UIPickerView!
 
+    @IBOutlet weak var vehiclePV: UIPickerView!
+    @IBOutlet weak var starshipPV: UIPickerView!
     
     @IBOutlet weak var smallestLabel: UILabel!
     @IBOutlet weak var largestLabel: UILabel!
@@ -344,9 +346,7 @@ extension DataViewController: UIPickerViewDelegate, UIPickerViewDataSource, UITa
 
         } else if cell.measurementTypeLabel.text == "Imperial" {
             let unit = cell.valueLabel.text?.stringsMatchingRegularExpression(expression: "[-+]?\\d+.?\\d+")
-            for units in unit! {
-                print(unit)
-            }
+
             
             if unit?.count == 1 {
                 if let unitValue = unit {

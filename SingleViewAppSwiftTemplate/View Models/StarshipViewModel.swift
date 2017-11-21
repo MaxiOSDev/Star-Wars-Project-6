@@ -87,7 +87,7 @@ class StarshipViewModel: NSObject, UITableViewDataSource {
                     if pickerIdentifier == attribute.name {
                         let doubleHeight = Double(attribute.length)
                         if let doubleHeight = doubleHeight {
-                            print(cell.valueLabel.text)
+
                             let meterLength =  Measurement(value: doubleHeight, unit: UnitLength.meters)
                             cell.valueLabel.text = "\(meterLength)"
                         }

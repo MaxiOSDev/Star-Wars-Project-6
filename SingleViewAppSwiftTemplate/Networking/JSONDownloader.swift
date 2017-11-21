@@ -44,99 +44,85 @@ class JSONDownloader {
 
 // Character JSON
 extension JSONDownloader {
-    
-    
-    
     static func characterDownloader() {
-        
-        
         for page in pages {
-            
             guard let jsonString = URL(string: "\(self.base)\(self.peopleResource)\(pageResource)\(page)") else { return }
             let session = URLSession.shared
-            DispatchQueue.main.async {
-                let task = session.dataTask(with: jsonString) { (data, _, error) in
-                    if let urlError = error as? URLError {
-                        switch urlError.code {
-                        case .notConnectedToInternet:
-                            print("No connection!")
-                        case .networkConnectionLost:
-                            print("Network Connection Lost!")
-                        default: break
+            let task = session.dataTask(with: jsonString) { (data, _, _) in
+                guard let data = data else { return }
+                do {
+                    let people = try JSONDecoder().decode(People.self, from: data)
+                    let characters = people.results
+                    for character in characters {
+                        
+                        dump("\(character.name)\(character.homeWorld)")
+                        
+                        characterLengthDictionary.updateValue(character.height!, forKey: character.name!)
+                        for (key, value) in characterLengthDictionary {
+                            if let valueDouble = Double(value) {
+                                characterDictionary.updateValue(valueDouble, forKey: key)
+                                
+                            }
+                        }
+                        profileAttributes.append(character)
+                        
+                        for page in stringPlanetPages {
+                            
+                            if character.homeWorld == self.base + self.planetResouce + page {
+                                
+                                guard let planetString = URL(string: "\(self.base)\(self.planetResouce)\(page)") else { return }
+                                let planetSession = URLSession.shared
+                                let planetTask = planetSession.dataTask(with: planetString) { (data, _, _) in
+                                    guard let data = data else { return }
+                                    do {
+                                        let planets = try JSONDecoder().decode(Planet.self, from: data)
+                                        
+                                        let planet = planets.name
+                                        character.homeWorld = planet
+                                        
+                                    } catch {}
+                                }
+                                planetTask.resume()
+                                
+                                URLSession.shared.dataTask(with: planetString) { data, response, error in
+                                    if let urlError = error as? URLError {
+                                        switch urlError.code {
+                                        case .notConnectedToInternet:
+                                            print("Connection Down!")
+                                        case .networkConnectionLost:
+                                            print("Network Connection Lost")
+                                        default: break
+                                        }
+                                    }
+                                }
+                            } else {
+                                print("no")
+                            }
                         }
                     }
-                    guard let data = data else { return }
-                    do {
-                        let people = try JSONDecoder().decode(People.self, from: data)
-                        let characters = people.results
-                        for character in characters {
-                            
-                            dump("\(character.name)\(character.homeWorld)")
-                            
-                            characterLengthDictionary.updateValue(character.height!, forKey: character.name!)
-                            for (key, value) in characterLengthDictionary {
-                                if let valueDouble = Double(value) {
-                                    characterDictionary.updateValue(valueDouble, forKey: key)
-                                    
-                                }
-                            }
-                            
-                            profileAttributes.append(character)
-                            
-                            for page in stringPlanetPages {
-                                print("Page Number \(page)")
-                                if character.homeWorld == self.base + self.planetResouce + page {
-                                    
-                                    guard let planetString = URL(string: "\(self.base)\(self.planetResouce)\(page)") else { return }
-                                    let planetSession = URLSession.shared
-                                    let planetTask = planetSession.dataTask(with: planetString) { (data, _, error) in
-                                        if let urlError = error as? URLError {
-                                            switch urlError.code {
-                                            case .notConnectedToInternet:
-                                                print("No connection!")
-                                            case .networkConnectionLost:
-                                                print("Network Connection Lost!")
-                                            default: break
-                                            }
-                                        }
-                                        guard let data = data else { return }
-                                        do {
-                                            let planets = try JSONDecoder().decode(Planet.self, from: data)
-                                            
-                                            let planet = planets.name
-                                            character.homeWorld = planet
-                                            
-                                        } catch {}
-                                    }
-                                    planetTask.resume()
-                                    
-                                    URLSession.shared.dataTask(with: planetString) { data, response, error in
-                                        if let urlError = error as? URLError {
-                                            switch urlError.code {
-                                            case .notConnectedToInternet:
-                                                print("Connection Down!")
-                                            case .networkConnectionLost:
-                                                print("Network Connection Lost")
-                                            default: break
-                                            }
-                                        }
-                                    }
-                                } else {
-                                    print("no")
-                                }
-                            }
-                        }
-                        
-                    } catch JSONDownloaderError.jsonParsingFailure {
-                        print("Parsing Failure")
-                    } catch {
-                        print("\(error)")
+                    
+                } catch JSONDownloaderError.jsonParsingFailure {
+                    print("Parsing Failure")
+                } catch {
+                    print("\(error)")
+                }
+            }
+            
+            task.resume()
+            
+            URLSession.shared.dataTask(with: jsonString) { data, response, error in
+                if let urlError = error as? URLError {
+                    switch urlError.code {
+                    case .notConnectedToInternet:
+                        print("Connection Down!")
+                    case .networkConnectionLost:
+                        print("Network Connection Lost")
+                    default: break
                     }
                 }
-                
-                task.resume()
             }
         }
+        
     }
 }
 
