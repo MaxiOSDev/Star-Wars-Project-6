@@ -9,6 +9,11 @@
 import Foundation
 import SystemConfiguration
 
+
+/*
+ [REVIEW] I'm not sure you need to do this anymore. URLSession has a connectivity checker built-in now.
+ https://developer.apple.com/videos/play/wwdc2017/709/
+*/
 struct InternetChecker {
     static func isConnectedToNetwork() -> Bool {
         
