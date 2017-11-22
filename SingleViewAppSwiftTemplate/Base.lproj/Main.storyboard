@@ -138,12 +138,51 @@
                     </view>
                     <connections>
                         <outlet property="characterIconButton" destination="C9l-ck-F0v" id="C3g-qw-tKg"/>
+                        <outlet property="loadingView" destination="pwV-y7-076" id="onN-23-Amt"/>
                         <outlet property="refreshIconButton" destination="oxM-lC-1xI" id="7iK-Kp-Cwa"/>
+                        <outlet property="shineView" destination="SgO-Br-tR7" id="B8m-q4-eNR"/>
                         <outlet property="starshipIconButton" destination="6kv-Gi-ABB" id="mCY-we-j5k"/>
                         <outlet property="vehicleIconButton" destination="O0m-R8-WKo" id="5bx-Ya-14N"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <view clipsSubviews="YES" contentMode="scaleToFill" id="pwV-y7-076" customClass="UIViewX" customModule="SingleViewAppSwiftTemplate" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    <subviews>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="starWarsBackground" translatesAutoresizingMaskIntoConstraints="NO" id="UGj-tR-Bpk" customClass="UIImageViewX" customModule="SingleViewAppSwiftTemplate" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                    <real key="value" value="30"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                        </imageView>
+                        <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SgO-Br-tR7" customClass="ThreePointGradientView" customModule="SingleViewAppSwiftTemplate" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="531" width="375" height="136"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="color" keyPath="firstColor">
+                                    <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="color" keyPath="thirdColor">
+                                    <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="color" keyPath="secondColor">
+                                    <color key="value" red="1" green="0.14913141730000001" blue="0.0" alpha="0.75904323630136983" colorSpace="custom" customColorSpace="sRGB"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                        </view>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="UGj-tR-Bpk" firstAttribute="top" secondItem="pwV-y7-076" secondAttribute="top" id="64v-Z6-zgk"/>
+                        <constraint firstAttribute="trailing" secondItem="UGj-tR-Bpk" secondAttribute="trailing" id="7ip-uR-m9u"/>
+                        <constraint firstAttribute="bottom" secondItem="UGj-tR-Bpk" secondAttribute="bottom" id="OBq-FH-Gvk"/>
+                        <constraint firstItem="UGj-tR-Bpk" firstAttribute="leading" secondItem="pwV-y7-076" secondAttribute="leading" id="dO1-bh-t5z"/>
+                    </constraints>
+                </view>
             </objects>
             <point key="canvasLocation" x="-82.400000000000006" y="115.59220389805098"/>
         </scene>
@@ -160,13 +199,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="aEA-Er-BOb">
-                                <rect key="frame" x="0.0" y="503" width="375" height="164"/>
+                                <rect key="frame" x="0.0" y="493" width="375" height="174"/>
                                 <subviews>
                                     <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="i9d-PG-6p6">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="123"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="133"/>
                                     </pickerView>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="Ep2-27-vMd">
-                                        <rect key="frame" x="0.0" y="123" width="375" height="41"/>
+                                        <rect key="frame" x="0.0" y="133" width="375" height="41"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="Jck-uz-3Bi">
                                                 <rect key="frame" x="0.0" y="0.0" width="240.5" height="41"/>
@@ -224,10 +263,10 @@
                                 </constraints>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="sUK-c3-CTL">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="403"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="393"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zUb-1e-Pa3">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="403"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="393"/>
                                         <subviews>
                                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="q3D-jk-lke">
                                                 <rect key="frame" x="0.0" y="72" width="375" height="304"/>
@@ -466,15 +505,23 @@
                                     </view>
                                 </subviews>
                             </stackView>
-                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="0By-RO-p0d">
-                                <rect key="frame" x="0.0" y="403" width="375" height="118"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="0By-RO-p0d">
+                                <rect key="frame" x="0.0" y="393" width="375" height="128"/>
                                 <subviews>
-                                    <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VC4-jh-cRF">
-                                        <rect key="frame" x="0.0" y="0.0" width="187" height="118"/>
-                                    </pickerView>
-                                    <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a7n-WK-zkg">
-                                        <rect key="frame" x="188" y="0.0" width="187" height="118"/>
-                                    </pickerView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fZC-eX-ZIk">
+                                        <rect key="frame" x="0.0" y="0.0" width="187.5" height="128"/>
+                                        <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <state key="normal" title="Associated Vehicles">
+                                            <color key="titleColor" red="0.56881684064865112" green="0.79216665029525757" blue="0.89733511209487915" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xdu-y4-ZEV">
+                                        <rect key="frame" x="187.5" y="0.0" width="187.5" height="128"/>
+                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <state key="normal" title="Associated Starships">
+                                            <color key="titleColor" red="0.56881684060000004" green="0.7921666503" blue="0.89733511210000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                    </button>
                                 </subviews>
                             </stackView>
                         </subviews>
@@ -517,8 +564,6 @@
                         <outlet property="nameLabel" destination="VeH-cd-RyG" id="EOw-n9-yi8"/>
                         <outlet property="smallestCVSLabel" destination="y7w-Ym-KL6" id="jee-CG-uDS"/>
                         <outlet property="smallestLabel" destination="8ag-lg-etj" id="ImS-RF-FJM"/>
-                        <outlet property="starshipPV" destination="a7n-WK-zkg" id="xNk-qh-89q"/>
-                        <outlet property="vehiclePV" destination="VC4-jh-cRF" id="Zaw-Dk-bgv"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gu8-Lc-s78" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -551,6 +596,7 @@
         <image name="icon-characters" width="100" height="100"/>
         <image name="icon-starships" width="100" height="100"/>
         <image name="icon-vehicles" width="100" height="100"/>
+        <image name="starWarsBackground" width="1080" height="1920"/>
         <image name="stormtrooperIcon" width="605" height="600"/>
     </resources>
     <inferredMetricsTieBreakers>

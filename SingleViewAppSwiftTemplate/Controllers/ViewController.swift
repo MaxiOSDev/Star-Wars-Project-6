@@ -18,12 +18,13 @@ class ViewController: UIViewController, CAAnimationDelegate {
     
     @IBOutlet weak var refreshIconButton: UIButton!
     @IBOutlet weak var refreshIndicator: UIActivityIndicatorView!
-    
+    @IBOutlet var loadingView: UIView!
+    @IBOutlet var shineView: UIView!
     override func viewDidLoad() {
         super.viewDidLoad()
-        DispatchQueue.main.async {
-            self.checkConnection()
-        }
+        
+        showLoadingScreen()
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -62,20 +63,67 @@ class ViewController: UIViewController, CAAnimationDelegate {
     }
     
     // Helper Methods
+    
+    func showLoadingScreen() {
+        loadingView.bounds.size.width = view.bounds.width - 25
+        loadingView.bounds.size.height = view.bounds.height - 40
+        
+        loadingView.center = view.center
+        loadingView.alpha = 0
+        
+        view.addSubview(loadingView)
+        UIView.animate(withDuration: 0.3, delay: 0.5, options: [], animations: {
+            self.loadingView.alpha = 1
+        }) { (success) in
+            self.animateShineView()
+        }
+        
+    }
+    
+    func animateShineView() {
+        UIView.animate(withDuration: 1, delay: 0.2, options: [], animations: {
+            self.shineView.transform = CGAffineTransform(translationX: 0, y: -800)
+        }) { (success) in
+            
+        //    self.hideLoadingScreen()
+            DispatchQueue.main.async {
+                self.checkConnection()
+            }
+            
+        }
+    }
+    
+    func hideLoadingScreen() {
+        UIView.animate(withDuration: 0.1, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: [], animations: {
+            self.loadingView.transform = CGAffineTransform(translationX: 0, y: 10)
+        }) { (sucsess) in
+            UIView.animate(withDuration: 0.3, animations: {
+                self.loadingView.transform = CGAffineTransform(translationX: 0, y: -800)
+            })
+        }
+    }
+    
+    
+    
     func checkConnection() {
-        if InternetChecker.isConnectedToNetwork() {
-            print("Yes Internet")
-            JSONDownloader.characterDownloader()
-            JSONDownloader.vehilceDownload()
-            JSONDownloader.starshipDownload()
-            enableIconButtons()
-        } else {
-            let alert = UIAlertController(title: "Error!", message: "No Internet Connection", preferredStyle: .alert)
-            let defaultAction = UIAlertAction(title: "Okay", style: .default, handler: nil)
-            alert.addAction(defaultAction)
-            self.present(alert, animated: true, completion: nil)
-            disableIconButtons()
-            print("No Internet")
+        func do_stuff(completion:(() -> Void)?) -> () {
+            if InternetChecker.isConnectedToNetwork() {
+                print("Yes Internet")
+                JSONDownloader.characterDownloader()
+                JSONDownloader.vehilceDownload()
+                JSONDownloader.starshipDownload()
+                enableIconButtons()
+                if completion != nil {
+                    return completion!()
+                }
+            } else {
+                let alert = UIAlertController(title: "Error!", message: "No Internet Connection", preferredStyle: .alert)
+                let defaultAction = UIAlertAction(title: "Okay", style: .default, handler: nil)
+                alert.addAction(defaultAction)
+                self.present(alert, animated: true, completion: nil)
+                disableIconButtons()
+                print("No Internet")
+            }
         }
         
     }

@@ -30,7 +30,8 @@ class Attribute: Codable {
     var eyeColor: String?
     var birthYear: String?
     var homeWorld: String?
-    
+    var vehicles: [String]
+    var starships: [String]
     enum CodingKeys: String, CodingKey {
         case name
         case height
@@ -38,7 +39,13 @@ class Attribute: Codable {
         case eyeColor = "eye_color"
         case birthYear = "birth_year"
         case homeWorld = "homeworld"
+        case vehicles
+        case starships
     }
+}
+
+struct AttributedVehicle: Codable {
+    let name: String
 }
 
 struct Planet: Codable {

@@ -20,13 +20,9 @@ class DataViewController: UIViewController {
     let vehicleValues = JSONDownloader.vehilceAttributes
     let shipValues = JSONDownloader.starshipAttributes
     
-    var associateVehiclePVModel: AssociatedVehiclePV!
     
     @IBOutlet weak var dataTableView: UITableView!
     @IBOutlet weak var dataPickerView: UIPickerView!
-
-    @IBOutlet weak var vehiclePV: UIPickerView!
-    @IBOutlet weak var starshipPV: UIPickerView!
     
     @IBOutlet weak var smallestLabel: UILabel!
     @IBOutlet weak var largestLabel: UILabel!
@@ -44,12 +40,11 @@ class DataViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+ 
         dataPickerView.delegate = self
         dataPickerView.dataSource = self
         dataTableView.delegate = self
-        associateVehiclePVModel = AssociatedVehiclePV()
-        associateVehiclePVModel.delegate = associateVehiclePVModel
-        associateVehiclePVModel.dataSource = associateVehiclePVModel
+
         dataSource()
         setNavBarTitle()
         setCustomBackImage()
@@ -103,7 +98,10 @@ class DataViewController: UIViewController {
     }
     
     
+    
 }
+
+
 
 extension DataViewController: UIPickerViewDelegate, UIPickerViewDataSource, UITableViewDelegate {
     

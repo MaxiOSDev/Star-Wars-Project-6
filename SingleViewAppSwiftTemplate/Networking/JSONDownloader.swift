@@ -31,7 +31,7 @@ class JSONDownloader {
     static var profileAttributes = [Attribute]()
     static var vehilceAttributes = [VehicleType]()
     static var starshipAttributes = [StarshipType]()
-    
+    static var associatedVehicles = [String]()
     static var starshipLengthDictonary = [String: String]()
     static var vehicleLengthDictionary = [String: String]()
     static var characterLengthDictionary = [String: String]()
@@ -55,7 +55,7 @@ extension JSONDownloader {
                     let characters = people.results
                     for character in characters {
                         
-                        dump("\(character.name)\(character.homeWorld)")
+                        dump("\(character.name)\(character.homeWorld)\(character.vehicles)")
                         
                         characterLengthDictionary.updateValue(character.height!, forKey: character.name!)
                         for (key, value) in characterLengthDictionary {
@@ -65,6 +65,21 @@ extension JSONDownloader {
                             }
                         }
                         profileAttributes.append(character)
+                        for var vehicle in character.vehicles {
+                            guard let newJsonString = URL(string: "\(self.base)\(self.vehicleResoure)\(page)/") else { return }
+                            
+                            let associatedVehicleTask = session.dataTask(with: newJsonString) { (data, _, _) in
+                                guard let data = data else { return }
+                                do {
+                                    let attributedVehicles = try JSONDecoder().decode(AttributedVehicle.self, from: data)
+                                    let attributedVehicle = attributedVehicles.name
+                                    
+                                    vehicle = attributedVehicle
+                                    associatedVehicles.append(vehicle)
+                                } catch {}
+                            }
+                            associatedVehicleTask.resume()
+                        }
                         
                         for page in stringPlanetPages {
                             

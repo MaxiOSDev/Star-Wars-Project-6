@@ -29,7 +29,7 @@ var dataType: DataType? = nil
 let min = 1
 let max = 100
 
-
+let vehicleCount: Attribute? = nil
 
 
 
