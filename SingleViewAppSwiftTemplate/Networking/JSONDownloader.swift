@@ -74,10 +74,12 @@ class JSONDownloader {
         if let data = data {
             completion(data)
         } else if let error = error {
-            //handle the error or pass it along in the completion block
+            //handle the error
         }
     }
  }
+ 
+ 
  
  
  I would then create Manager structs for the various types (People, Vehicle and Starship), create methods to fetch and parse the JSON and let this struct pass the JSON to the next object which needs it.
