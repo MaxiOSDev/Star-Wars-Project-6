@@ -67,7 +67,7 @@ class HeightCostCell: UITableViewCell {
     @IBOutlet weak var valueLabel: UILabel!
     @IBOutlet weak var measurementTypeLabel: UILabel!
     
-    var attribute: Attribute? {
+    var attribute: Character? {
         didSet {
             titleLabel.text = "Height"
             //        valueLabel.text = attribute?.homeWorld

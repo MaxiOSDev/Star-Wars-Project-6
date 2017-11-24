@@ -17,7 +17,7 @@ class CostHomeCell: UITableViewCell {
     @IBOutlet weak var usdLabel: UILabel!
     @IBOutlet weak var creditsLabel: UILabel!
     
-    var attribute: Attribute? {
+    var attribute: Character? {
         didSet {
             titleLabel.text = "Home"
             //        valueLabel.text = attribute?.homeWorld

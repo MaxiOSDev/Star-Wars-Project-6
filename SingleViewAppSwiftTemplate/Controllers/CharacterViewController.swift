@@ -16,7 +16,7 @@ class DataViewController: UIViewController {
     fileprivate let viewModel = CVSViewModel()
     fileprivate let vehicleViewModel = VehicleViewModel()
     fileprivate let shipViewModel = StarshipViewModel()
-    let characterValues = JSONDownloader.profileAttributes
+    let characterValues = PeopleManager.profileAttributes
     let vehicleValues = JSONDownloader.vehilceAttributes
     let shipValues = JSONDownloader.starshipAttributes
     

@@ -15,7 +15,7 @@ class CrewHairCell: UITableViewCell {
     @IBOutlet weak var valueLabel: UILabel!
     @IBOutlet weak var titleLabel: UILabel!
     
-    var attribute: Attribute? {
+    var attribute: Character? {
         didSet {
             titleLabel.text = "Hair"
             //        valueLabel.text = attribute?.homeWorld

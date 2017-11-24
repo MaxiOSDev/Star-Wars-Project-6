@@ -15,7 +15,7 @@ class ClassEyesCell: UITableViewCell {
     @IBOutlet weak var valueLabel: UILabel!
     @IBOutlet weak var titleLabel: UILabel!
     
-    var attribute: Attribute? {
+    var attribute: Character? {
         didSet {
             titleLabel.text = "Eyes"
             //        valueLabel.text = attribute?.homeWorld

@@ -26,11 +26,26 @@ enum ExchangeError: Error {
 
 var dataType: DataType? = nil
 
+
+struct Page {
+    static let min = 1
+    static let max = 100
+    
+    static let planetPages = [Int](min..<max)
+    static var stringPlanetPages = planetPages.map {
+        String("/\($0)/")
+    }
+    
+    static let pageResource: String = "?page="
+    static var pages = planetPages.map {
+        String("\($0)")
+    }
+}
+
 let min = 1
 let max = 100
 
-let vehicleCount: Attribute? = nil
-
+let vehicleCount: Character? = nil
 
 
 

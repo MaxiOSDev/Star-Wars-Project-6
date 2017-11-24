@@ -22,8 +22,8 @@ class ViewController: UIViewController, CAAnimationDelegate {
     @IBOutlet var shineView: UIView!
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        showLoadingScreen()
+        PeopleManager.fetchPeople()
+        //showLoadingScreen()
         
     }
     
@@ -109,7 +109,7 @@ class ViewController: UIViewController, CAAnimationDelegate {
         func do_stuff(completion:(() -> Void)?) -> () {
             if InternetChecker.isConnectedToNetwork() {
                 print("Yes Internet")
-                JSONDownloader.characterDownloader()
+                PeopleManager.fetchPeople()
                 JSONDownloader.vehilceDownload()
                 JSONDownloader.starshipDownload()
                 enableIconButtons()

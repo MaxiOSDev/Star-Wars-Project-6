@@ -30,26 +30,60 @@ class JSONDownloader {
          }
      }
     */
+    
+    enum Endpoint: String {
+        case people
+        case planets
+        case vehicles
+        case starships
+        
+        private var baseURL: String {
+            return "https://swapi.co/api/"
+        }
+        
+        private var pageURL: String {
+            return "?page="
+        }
+        
+        private var planetResource: String {
+            return "planets/"
+        }
+
+        var url: URL {
+            return URL(string: baseURL + self.rawValue)!
+        }
+        
+        var peopleURL: URL {
+            return URL(string: baseURL + self.rawValue + self.pageURL)!
+        }
+        
+        var planetURL: URL {
+            return URL(string: baseURL + self.rawValue)!
+        }
+        
+    }
+    
     static let base: String = "https://swapi.co/api/"
     static let peopleResource: String = "people/"
     static let vehicleResoure: String = "vehicles/"
     static let starshipResource: String = "starships/"
     static let planetResouce: String = "planets/"
     
-    
-    
     //[REVIEW] These don't belong here. The networking layer should only handle downloading the data and passing it along to the next object, all the rest should be handled by a "Manager" struct. More about the "Manager" a little farther down.
+    
     static let planetPages = [Int](min..<max)
     static var stringPlanetPages = planetPages.map {
         String("\($0)/")
     }
+    
     static let pageResource: String = "?page="
     static var pages = planetPages.map {
         String("\($0)")
     }
+    
     static var name: String?
     
-    static var profileAttributes = [Attribute]()
+    static var profileAttributes = [Character]()
     static var vehilceAttributes = [VehicleType]()
     static var starshipAttributes = [StarshipType]()
     static var associatedVehicles = [String]()
@@ -59,43 +93,74 @@ class JSONDownloader {
     static var characterDictionary = [String: Double]()
     static var vehicleDictionary = [String: Double]()
     static var starshipDictionary = [String: Double]()
-
+    
     
 }
 
-/*
-[REVIEW] While this works, it doesn't really make sense to let the networking layer handle all the logic.
- I would create a fetchEndpoint() function which takes the Endpoint enum as a parameter and then just passes the data to the object asking for it.
- 
- static func fetchEndpoint(endpoint: Endpoint, completion: @escaping (Data) -> Void) {
-    let url = endpoint.url
-    let session = URLSession.shared
-    let task = session.dataTask(with: url) { (data, response, error) in
-        if let data = data {
-            completion(data)
-        } else if let error = error {
-            //handle the error
-        }
-    }
- }
- 
- 
- 
- 
- I would then create Manager structs for the various types (People, Vehicle and Starship), create methods to fetch and parse the JSON and let this struct pass the JSON to the next object which needs it.
- For example:
- 
- struct PeopleManager {
- 
-    //This can also use a completion block, or just return the array of people. Whatever you like best.
-    static func fetchPeople() -> [People] {
-        JSONDownloader.fetchEndpoint(endpoint: .people) { data in
-            //decode the data to JSON and return the array of people
-        }
-    }
- }
+extension JSONDownloader {
+    static func fetchEndpoint(endpoint: Endpoint, completion: @escaping (Data) -> Void) {
+        for page in Page.pages {
+                let newURL = String("\(endpoint.peopleURL)\(page)")
+                let url = URL(string: newURL)!
+                let session = URLSession.shared
+                let task = session.dataTask(with: url) { (data, response, error) in
 
-*/
+                    if let data = data {
+                        completion(data)
+                    } else if let error = error {
+                        //handle the error
+                    }
+                    
+                }
+                task.resume()
+        }
+}
+    
+    static func fetchPlanet(endpoint: Endpoint, completion: @escaping (Data) -> Void) {
+        for planet in Page.stringPlanetPages {
+            let url = String("\(endpoint.planetURL)\(planet)")
+            let planetURL = URL(string: url)!
+            let session = URLSession.shared
+            let task = session.dataTask(with: planetURL) { (data, response, error) in
+                if let data = data {
+                    completion(data)
+                } else if let error = error {
+                    
+                }
+            }
+            task.resume()
+        }
+    }
+}
+
+
+
+struct PeopleManager {
+    // How could I get the planet urls of each charcter correctly?
+    static var profileAttributes = [Character]()
+    
+    static func fetchPeople() -> [Character] {
+        JSONDownloader.fetchEndpoint(endpoint: .people) { (data) in
+            
+            do {
+                let people = try JSONDecoder().decode(People.self, from: data)
+                let characters = people.results
+                for character in characters {
+                    print("\(character.name)\(character.homeWorld)")
+                    profileAttributes.append(character)
+                    
+                }
+
+            } catch {}
+        }
+        return profileAttributes
+    }
+}
+
+
+
+
+// Old way of getting JSON Data below
 
 
 // Character JSON

@@ -13,7 +13,7 @@ struct People: Codable {
     let count: Int
     let next: String?
     let previous: String?
-    let results: [Attribute]
+    let results: [Character]
     
     enum CodingKeys: String, CodingKey {
         case count
@@ -23,7 +23,7 @@ struct People: Codable {
     }
 }
 
-class Attribute: Codable {
+class Character: Codable {
     var name: String?
     var height: String?
     var hairColor: String?

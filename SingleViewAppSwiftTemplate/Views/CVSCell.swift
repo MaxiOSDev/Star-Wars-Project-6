@@ -15,7 +15,7 @@ class CVSCell: UITableViewCell {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var valueLabel: UILabel!
     
-    var attribute: Attribute? {
+    var attribute: Character? {
         didSet {
             titleLabel.text = "Born"
     //        valueLabel.text = attribute?.homeWorld

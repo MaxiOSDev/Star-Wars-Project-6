@@ -27,9 +27,9 @@ class ProfileViewModeAttributeItem: ProfileViewModelItem {
         return .home
     }
     
-    var attributes: [Attribute]
+    var attributes: [Character]
     
-    init(attributes: [Attribute]) {
+    init(attributes: [Character]) {
         self.attributes = attributes
     }
 }
@@ -40,7 +40,7 @@ class CVSViewModel: NSObject, UITableViewDataSource {
     
     override init() {
         super.init()
-        let profileAttributes = JSONDownloader.profileAttributes
+        let profileAttributes = PeopleManager.profileAttributes
         if !profileAttributes.isEmpty {
             let attributesItem = ProfileViewModeAttributeItem(attributes: profileAttributes)
             attributes.append(attributesItem)
