@@ -104,9 +104,11 @@ class ViewController: UIViewController, CAAnimationDelegate {
     }
     
     func getData() {
-        PeopleManager.fetchPeople()
-        VehicleManager.fetchVehicle()
-        StarshipManager.fetchStarship()
+        DispatchQueue.main.async {
+            PeopleManager.fetchPeople()
+            VehicleManager.fetchVehicle()
+            StarshipManager.fetchStarship()
+        }
     }
     
     

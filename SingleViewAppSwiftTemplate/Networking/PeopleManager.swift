@@ -28,8 +28,10 @@ struct PeopleManager {
                                 
                             }
                         }
+                        
+                        
                         JSONDownloader.getVehicle(for: character)
-                        print(character.vehicles)
+                        print("IN MANAGER \(character.name)\(character.vehicles)")
                         JSONDownloader.getPlanet(for: character)
                         profileAttributes.append(character)
                     }

@@ -25,6 +25,7 @@
 		FB92D7901FCC5D2E009AC0DC /* PeopleManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB92D78F1FCC5D2E009AC0DC /* PeopleManager.swift */; };
 		FB92D7921FCC5D3B009AC0DC /* VehicleManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB92D7911FCC5D3B009AC0DC /* VehicleManager.swift */; };
 		FB92D7941FCC5D49009AC0DC /* StarshipManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB92D7931FCC5D49009AC0DC /* StarshipManager.swift */; };
+		FB92D7B41FCCAF6A009AC0DC /* AVPopUpController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB92D7B31FCCAF6A009AC0DC /* AVPopUpController.swift */; };
 		FB96DD981FBA2BA500832D6A /* CostHomeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB96DD971FBA2BA500832D6A /* CostHomeCell.swift */; };
 		FB96DD9A1FBA2BB700832D6A /* HeightLengthCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB96DD991FBA2BB700832D6A /* HeightLengthCell.swift */; };
 		FB96DD9C1FBA2BC700832D6A /* ClassEyesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB96DD9B1FBA2BC700832D6A /* ClassEyesCell.swift */; };
@@ -78,6 +79,7 @@
 		FB92D78F1FCC5D2E009AC0DC /* PeopleManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeopleManager.swift; sourceTree = "<group>"; };
 		FB92D7911FCC5D3B009AC0DC /* VehicleManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VehicleManager.swift; sourceTree = "<group>"; };
 		FB92D7931FCC5D49009AC0DC /* StarshipManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarshipManager.swift; sourceTree = "<group>"; };
+		FB92D7B31FCCAF6A009AC0DC /* AVPopUpController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVPopUpController.swift; sourceTree = "<group>"; };
 		FB96DD971FBA2BA500832D6A /* CostHomeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CostHomeCell.swift; sourceTree = "<group>"; };
 		FB96DD991FBA2BB700832D6A /* HeightLengthCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeightLengthCell.swift; sourceTree = "<group>"; };
 		FB96DD9B1FBA2BC700832D6A /* ClassEyesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassEyesCell.swift; sourceTree = "<group>"; };
@@ -185,6 +187,7 @@
 			children = (
 				3A8AADCA1DF9B85E00A2B931 /* ViewController.swift */,
 				FB891C771FB623D700809E53 /* CharacterViewController.swift */,
+				FB92D7B31FCCAF6A009AC0DC /* AVPopUpController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -382,6 +385,7 @@
 				FB50E0391FB3430A005A3B3D /* Vehicle.swift in Sources */,
 				3A8AADC91DF9B85E00A2B931 /* AppDelegate.swift in Sources */,
 				FB96DD9C1FBA2BC700832D6A /* ClassEyesCell.swift in Sources */,
+				FB92D7B41FCCAF6A009AC0DC /* AVPopUpController.swift in Sources */,
 				FBD1F5391FC4EBD200704E62 /* UIViewX.swift in Sources */,
 				FB92D7901FCC5D2E009AC0DC /* PeopleManager.swift in Sources */,
 				FBD1F5371FC4EA9C00704E62 /* UIImageViewX.swift in Sources */,

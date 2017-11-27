@@ -100,8 +100,11 @@ extension JSONDownloader {
                         do {
                             let vehicles = try JSONDecoder().decode(VehicleType.self, from: data)
                             let associatedVehicle = vehicles.name
+                            print("AssociatedVehicle \(associatedVehicle)")
                             vehicle = associatedVehicle
-                            print("\(character.name)\(vehicle)")
+                            print("Vehicle: \(vehicle)")
+                          //  character.vehicles.removeAll()
+                            character.vehicles.append(vehicle)
                         } catch {}
                     }
                     

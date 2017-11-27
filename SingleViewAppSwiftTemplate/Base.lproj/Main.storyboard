@@ -514,6 +514,9 @@
                                         <state key="normal" title="Associated Vehicles">
                                             <color key="titleColor" red="0.56881684064865112" green="0.79216665029525757" blue="0.89733511209487915" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
+                                        <connections>
+                                            <segue destination="mN3-RS-FbP" kind="presentation" id="J0h-EJ-SFd"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xdu-y4-ZEV">
                                         <rect key="frame" x="187.5" y="0.0" width="187.5" height="5"/>
@@ -569,6 +572,79 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gu8-Lc-s78" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1680.8" y="115.59220389805098"/>
+        </scene>
+        <!--Pop Up Controller-->
+        <scene sceneID="qzV-Af-ru2">
+            <objects>
+                <viewController modalTransitionStyle="crossDissolve" modalPresentationStyle="overCurrentContext" id="mN3-RS-FbP" customClass="AVPopUpController" customModule="SingleViewAppSwiftTemplate" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="P2b-ei-lom"/>
+                        <viewControllerLayoutGuide type="bottom" id="pqo-zW-bOy"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="7Mz-7A-asJ">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Juh-xF-Yd5" customClass="UIViewX" customModule="SingleViewAppSwiftTemplate" customModuleProvider="target">
+                                <rect key="frame" x="67" y="269" width="240" height="128"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PlaceHolder Text" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TWy-DG-w7g">
+                                        <rect key="frame" x="0.0" y="28" width="240" height="12"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HRf-sH-D6s">
+                                        <rect key="frame" x="93" y="90" width="54" height="30"/>
+                                        <state key="normal" title="Dismiss"/>
+                                        <connections>
+                                            <action selector="closePopUp:" destination="mN3-RS-FbP" eventType="touchUpInside" id="mHU-O4-BID"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="HRf-sH-D6s" firstAttribute="leading" secondItem="Juh-xF-Yd5" secondAttribute="leading" constant="93" id="7WE-Bf-ABo"/>
+                                    <constraint firstAttribute="width" constant="240" id="L60-ST-lU3"/>
+                                    <constraint firstAttribute="trailing" secondItem="HRf-sH-D6s" secondAttribute="trailing" constant="93" id="Lqp-Nk-9Y0"/>
+                                    <constraint firstItem="TWy-DG-w7g" firstAttribute="leading" secondItem="Juh-xF-Yd5" secondAttribute="leading" id="NcR-zH-ysr"/>
+                                    <constraint firstItem="TWy-DG-w7g" firstAttribute="top" secondItem="Juh-xF-Yd5" secondAttribute="top" constant="28" id="RqL-34-X9B"/>
+                                    <constraint firstAttribute="bottom" secondItem="HRf-sH-D6s" secondAttribute="bottom" constant="8" id="bpi-qR-W9W"/>
+                                    <constraint firstItem="HRf-sH-D6s" firstAttribute="top" secondItem="TWy-DG-w7g" secondAttribute="bottom" constant="50" id="eAS-N5-i0E"/>
+                                    <constraint firstAttribute="trailing" secondItem="TWy-DG-w7g" secondAttribute="trailing" id="iFI-lY-4AV"/>
+                                    <constraint firstAttribute="height" constant="128" id="rpJ-X2-m9L"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="firstColor">
+                                        <color key="value" cocoaTouchSystemColor="lightTextColor"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="secondColor">
+                                        <color key="value" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                        <real key="value" value="0.0"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
+                                        <real key="value" value="0.0"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="Juh-xF-Yd5" firstAttribute="centerX" secondItem="7Mz-7A-asJ" secondAttribute="centerX" id="M21-GC-xvB"/>
+                            <constraint firstItem="Juh-xF-Yd5" firstAttribute="centerY" secondItem="7Mz-7A-asJ" secondAttribute="centerY" id="rlv-25-UM2"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="avLabel" destination="TWy-DG-w7g" id="FXN-Ai-VuC"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="As3-UR-UZM" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2596" y="116"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="mlB-Z4-xQg">

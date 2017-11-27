@@ -97,7 +97,17 @@ class DataViewController: UIViewController {
         dismiss(animated: true, completion: nil)
     }
     
-    
+   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let assocaitedVehiclesVC = segue.destination as? AVPopUpController {
+            for character in characterValues {
+                if pickerIdentifier == character.name {
+                    assocaitedVehiclesVC.avLabelText = "\(character.vehicles)"
+                }
+                
+            }
+            
+        }
+    }
     
 }
 
@@ -146,6 +156,7 @@ extension DataViewController: UIPickerViewDelegate, UIPickerViewDataSource, UITa
                 pickerIdentifier = characterValues[row].name
                 cell.usdLabel.isHidden = true
                 cell.creditsLabel.isHidden = true
+                
             }
         } else if dataType == DataType.vehicle {
             let indexPath = IndexPath(row: 1, section: 0)
@@ -177,7 +188,13 @@ extension DataViewController: UIPickerViewDelegate, UIPickerViewDataSource, UITa
     }
     
     
-
+    
+    
+    func printCharacterValues() {
+        for character in characterValues {
+            print("I AM THE VALUES \(character.name) \(character.vehicles)")
+        }
+    }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         cell.backgroundColor = .clear
