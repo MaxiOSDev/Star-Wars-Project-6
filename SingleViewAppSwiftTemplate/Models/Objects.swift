@@ -26,6 +26,7 @@ enum ExchangeError: Error {
 
 var dataType: DataType? = nil
 
+
 struct Page {
     static let min = 1
     static let max = 100

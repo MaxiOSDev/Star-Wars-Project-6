@@ -30,6 +30,8 @@ class JSONDownloader {
         
     }
     
+    static let semaphore = DispatchSemaphore(value: 0)
+    
     static let base: String = "https://swapi.co/api/"
     static let peopleResource: String = "people/"
     static let vehicleResoure: String = "vehicles/"
@@ -40,13 +42,13 @@ class JSONDownloader {
 
 extension JSONDownloader {
     static func fetchEndpoint(endpoint: Endpoint, completion: @escaping (Data) -> Void) {
-        
+
         for page in Page.pages {
                 let newURL = String("\(endpoint.url)\(page)")
                 let url = URL(string: newURL)!
                 let session = URLSession.shared
                 let task = session.dataTask(with: url) { (data, response, error) in
-
+                semaphore.signal()
                     if let data = data {
                         completion(data)
                     } else if let urlError = error as? URLError {
@@ -60,7 +62,10 @@ extension JSONDownloader {
                     }
                     
                 }
+            
                 task.resume()
+                semaphore.wait()
+            
         }
 }
     

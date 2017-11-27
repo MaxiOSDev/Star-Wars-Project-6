@@ -16,6 +16,8 @@ class ViewController: UIViewController, CAAnimationDelegate {
     @IBOutlet weak var vehicleIconButton: UIButton!
     @IBOutlet weak var starshipIconButton: UIButton!
     
+    @IBOutlet weak var progressView: UIProgressView!
+    
     @IBOutlet weak var refreshIconButton: UIButton!
     @IBOutlet weak var refreshIndicator: UIActivityIndicatorView!
     @IBOutlet var loadingView: UIView!
@@ -23,9 +25,6 @@ class ViewController: UIViewController, CAAnimationDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         showLoadingScreen()
-
-        
-        
     }
     
     override func didReceiveMemoryWarning() {
@@ -85,28 +84,27 @@ class ViewController: UIViewController, CAAnimationDelegate {
         UIView.animate(withDuration: 1, delay: 0.2, options: [], animations: {
             self.shineView.transform = CGAffineTransform(translationX: 0, y: -800)
         }) { (success) in
-            
-            
             DispatchQueue.main.async {
                 PeopleManager.fetchPeople()
                 VehicleManager.fetchVehicle()
                 StarshipManager.fetchStarship()
+                JSONDownloader.semaphore.signal()
             }
-            
             self.hideLoadingScreen()
-            
         }
     }
     
     func hideLoadingScreen() {
         UIView.animate(withDuration: 0.1, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: [], animations: {
             self.loadingView.transform = CGAffineTransform(translationX: 0, y: 10)
-        }) { (sucsess) in
+        }) { (success) in
             UIView.animate(withDuration: 0.3, animations: {
                 self.loadingView.transform = CGAffineTransform(translationX: 0, y: -800)
             })
         }
     }
+    
+
     
     
     
