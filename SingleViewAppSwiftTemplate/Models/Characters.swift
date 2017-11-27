@@ -23,14 +23,6 @@ struct People: Codable {
     }
 }
 
-struct Main: Codable {
-    let count: Int
-    let next: String?
-    let previous: String?
-    let results: [Planet]
-}
-
-
 class Character: Codable {
     var name: String?
     var height: String?

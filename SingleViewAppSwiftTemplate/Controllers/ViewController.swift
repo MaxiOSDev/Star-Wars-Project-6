@@ -22,10 +22,9 @@ class ViewController: UIViewController, CAAnimationDelegate {
     @IBOutlet var shineView: UIView!
     override func viewDidLoad() {
         super.viewDidLoad()
-        PeopleManager.fetchPeople()
-        VehicleManager.fetchVehicle()
-        StarshipManager.fetchStarship()
-        //showLoadingScreen()
+        showLoadingScreen()
+
+        
         
     }
     
@@ -49,7 +48,7 @@ class ViewController: UIViewController, CAAnimationDelegate {
     }
     
     @IBAction func refreshView(_ sender: UIButton) {
-        checkConnection()
+     //   checkConnection()
         toggleRefresh()
     }
     
@@ -87,10 +86,14 @@ class ViewController: UIViewController, CAAnimationDelegate {
             self.shineView.transform = CGAffineTransform(translationX: 0, y: -800)
         }) { (success) in
             
-        //    self.hideLoadingScreen()
+            
             DispatchQueue.main.async {
-                self.checkConnection()
+                PeopleManager.fetchPeople()
+                VehicleManager.fetchVehicle()
+                StarshipManager.fetchStarship()
             }
+            
+            self.hideLoadingScreen()
             
         }
     }
@@ -107,28 +110,28 @@ class ViewController: UIViewController, CAAnimationDelegate {
     
     
     
-    func checkConnection() {
-        func do_stuff(completion:(() -> Void)?) -> () {
-            if InternetChecker.isConnectedToNetwork() {
-                print("Yes Internet")
-                PeopleManager.fetchPeople()
-                JSONDownloader.vehilceDownload()
-                JSONDownloader.starshipDownload()
-                enableIconButtons()
-                if completion != nil {
-                    return completion!()
-                }
-            } else {
-                let alert = UIAlertController(title: "Error!", message: "No Internet Connection", preferredStyle: .alert)
-                let defaultAction = UIAlertAction(title: "Okay", style: .default, handler: nil)
-                alert.addAction(defaultAction)
-                self.present(alert, animated: true, completion: nil)
-                disableIconButtons()
-                print("No Internet")
-            }
-        }
-        
-    }
+//    func checkConnection() {
+//        func do_stuff(completion:(() -> Void)?) -> () {
+//            if InternetChecker.isConnectedToNetwork() {
+//                print("Yes Internet")
+//                PeopleManager.fetchPeople()
+//                JSONDownloader.vehilceDownload()
+//                JSONDownloader.starshipDownload()
+//                enableIconButtons()
+//                if completion != nil {
+//                    return completion!()
+//                }
+//            } else {
+//                let alert = UIAlertController(title: "Error!", message: "No Internet Connection", preferredStyle: .alert)
+//                let defaultAction = UIAlertAction(title: "Okay", style: .default, handler: nil)
+//                alert.addAction(defaultAction)
+//                self.present(alert, animated: true, completion: nil)
+//                disableIconButtons()
+//                print("No Internet")
+//            }
+//        }
+//
+//    }
     
   
     
