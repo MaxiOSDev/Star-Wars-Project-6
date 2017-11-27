@@ -251,42 +251,42 @@ extension DataViewController: UIPickerViewDelegate, UIPickerViewDataSource, UITa
     
     func smallestCharacter() {
         if dataType == DataType.character {
-            let smallest = JSONDownloader.characterDictionary.min { a, b in a.value < b.value }
+            let smallest = PeopleManager.characterDictionary.min { a, b in a.value < b.value }
             smallestCVSLabel.text = smallest?.key
         }
     }
     
     func largestCharacter() {
         if dataType == DataType.character {
-            let largest = JSONDownloader.characterDictionary.max { a, b in a.value < b.value }
+            let largest = PeopleManager.characterDictionary.max { a, b in a.value < b.value }
             largestCVSLabel.text = largest?.key
         }
     }
     
     func smallestShip() {
         if dataType == DataType.starship {
-            let smallest = JSONDownloader.starshipDictionary.min { a, b in a.value < b.value }
+            let smallest = StarshipManager.starshipDictionary.min { a, b in a.value < b.value }
             smallestCVSLabel.text = smallest?.key
         }
     }
     
     func largestShip() {
         if dataType == DataType.starship {
-            let largest = JSONDownloader.starshipDictionary.max { a, b in a.value < b.value }
+            let largest = StarshipManager.starshipDictionary.max { a, b in a.value < b.value }
             largestCVSLabel.text = largest?.key
         }
     }
     
     func smallestVehicle() {
         if dataType == DataType.vehicle {
-            let largest = JSONDownloader.vehicleDictionary.min { a, b in a.value < b.value }
+            let largest = VehicleManager.vehicleDictionary.min { a, b in a.value < b.value }
             smallestCVSLabel.text = largest?.key
         }
     }
     
     func largestVehicle() {
         if dataType == DataType.vehicle {
-            let largest = JSONDownloader.vehicleDictionary.max { a, b in a.value < b.value }
+            let largest = VehicleManager.vehicleDictionary.max { a, b in a.value < b.value }
             largestCVSLabel.text = largest?.key
         }
     }

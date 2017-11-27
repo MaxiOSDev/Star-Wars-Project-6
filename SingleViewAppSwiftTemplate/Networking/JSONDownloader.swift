@@ -32,17 +32,12 @@ class JSONDownloader {
             return "planets/"
         }
 
-        var url: URL {
-            return URL(string: baseURL + self.rawValue)!
-        }
+
         
-        var peopleURL: URL {
+        var url: URL {
             return URL(string: baseURL + self.rawValue + self.pageURL)!
         }
         
-        var planetURL: URL {
-            return URL(string: baseURL + self.rawValue)!
-        }
         
     }
     
@@ -84,15 +79,21 @@ extension JSONDownloader {
     static func fetchEndpoint(endpoint: Endpoint, completion: @escaping (Data) -> Void) {
         
         for page in Page.pages {
-                let newURL = String("\(endpoint.peopleURL)\(page)")
+                let newURL = String("\(endpoint.url)\(page)")
                 let url = URL(string: newURL)!
                 let session = URLSession.shared
                 let task = session.dataTask(with: url) { (data, response, error) in
 
                     if let data = data {
                         completion(data)
-                    } else if let error = error {
-                        //handle the error
+                    } else if let urlError = error as? URLError {
+                        switch urlError.code {
+                        case .notConnectedToInternet:
+                            print("No connection!")
+                        case .networkConnectionLost:
+                            print("Network Conncetion Lost!")
+                        default: break
+                        }
                     }
                     
                 }
@@ -124,7 +125,8 @@ extension JSONDownloader {
 struct PeopleManager {
     
     static var profileAttributes = [Character]()
-    
+    static var characterLengthDictionary = [String: String]()
+    static var characterDictionary = [String: Double]()
     static func fetchPeople() -> [Character] {
         JSONDownloader.fetchEndpoint(endpoint: .people) { (data) in
             DispatchQueue.main.async {
@@ -132,7 +134,13 @@ struct PeopleManager {
                     let people = try JSONDecoder().decode(People.self, from: data)
                     let characters = people.results
                     for character in characters {
-                        print("\(character.name)\(character.homeWorld)")
+                        characterLengthDictionary.updateValue(character.height!, forKey: character.name!)
+                        for (key, value) in characterLengthDictionary {
+                            if let valueDouble = Double(value) {
+                                characterDictionary.updateValue(valueDouble, forKey: key)
+                                
+                            }
+                        }
                         JSONDownloader.getPlanet(for: character)
                         profileAttributes.append(character)
                     }
@@ -148,7 +156,8 @@ struct PeopleManager {
 struct VehicleManager {
     
     static var vehicleAttributes = [VehicleType]()
-    
+    static var vehicleLengthDictionary = [String: String]()
+    static var vehicleDictionary = [String: Double]()
     static func fetchVehicle() -> [VehicleType] {
         JSONDownloader.fetchEndpoint(endpoint: .vehicles) { (data) in
             DispatchQueue.main.async {
@@ -156,6 +165,13 @@ struct VehicleManager {
                     let vehicles = try JSONDecoder().decode(Vehicle.self, from: data)
                     let results = vehicles.results
                     for vehicle in results {
+                        vehicleLengthDictionary.updateValue(vehicle.length, forKey: vehicle.name)
+                        for (key, value) in vehicleLengthDictionary {
+                            if let valueDouble = Double(value) {
+                                vehicleDictionary.updateValue(valueDouble, forKey: key)
+                                
+                            }
+                        }
                         vehicleAttributes.append(vehicle)
                     }
                 } catch {}
@@ -168,7 +184,8 @@ struct VehicleManager {
 
 struct StarshipManager {
     static var starshipAttributes = [StarshipType]()
-    
+    static var starshipLengthDictonary = [String: String]()
+    static var starshipDictionary = [String: Double]()
     static func fetchStarship() -> [StarshipType] {
         JSONDownloader.fetchEndpoint(endpoint: .starships) { (data) in
             DispatchQueue.main.async {
@@ -176,6 +193,12 @@ struct StarshipManager {
                     let starships = try JSONDecoder().decode(Starship.self, from: data)
                     let results = starships.results
                     for starship in results {
+                        starshipLengthDictonary.updateValue(starship.length, forKey: starship.name)
+                        for (key, value) in starshipLengthDictonary {
+                            if let valueDouble = Double(value) {
+                                starshipDictionary.updateValue(valueDouble, forKey: key)
+                            }
+                        }
                         starshipAttributes.append(starship)
                     }
                 } catch {}
