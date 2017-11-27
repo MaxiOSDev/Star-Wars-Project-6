@@ -17,8 +17,8 @@ class DataViewController: UIViewController {
     fileprivate let vehicleViewModel = VehicleViewModel()
     fileprivate let shipViewModel = StarshipViewModel()
     let characterValues = PeopleManager.profileAttributes
-    let vehicleValues = JSONDownloader.vehilceAttributes
-    let shipValues = JSONDownloader.starshipAttributes
+    let vehicleValues = VehicleManager.vehicleAttributes
+    let shipValues = StarshipManager.starshipAttributes
     
     
     @IBOutlet weak var dataTableView: UITableView!

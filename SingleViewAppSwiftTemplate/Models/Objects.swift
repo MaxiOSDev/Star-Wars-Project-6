@@ -33,7 +33,7 @@ struct Page {
     
     static let planetPages = [Int](min..<max)
     static var stringPlanetPages = planetPages.map {
-        String("/\($0)/")
+        String("\($0)/")
     }
     
     static let pageResource: String = "?page="

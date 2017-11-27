@@ -23,6 +23,8 @@ class ViewController: UIViewController, CAAnimationDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         PeopleManager.fetchPeople()
+        VehicleManager.fetchVehicle()
+        StarshipManager.fetchStarship()
         //showLoadingScreen()
         
     }

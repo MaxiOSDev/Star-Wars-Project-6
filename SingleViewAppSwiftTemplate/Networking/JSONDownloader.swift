@@ -13,23 +13,6 @@ import Foundation
 
 class JSONDownloader {
     
-    /*
-     [REVIEW] The URL could be a little enum
-    
-     enum Endpoint: String {
-     case people
-     case vehicles
-     case starships
-     
-         private var baseURL: String {
-            return "https://swapi.co/api/"
-         }
-     
-         var url: URL {
-            return URL(string: baseURL + self.rawValue)!
-         }
-     }
-    */
     
     enum Endpoint: String {
         case people
@@ -99,6 +82,7 @@ class JSONDownloader {
 
 extension JSONDownloader {
     static func fetchEndpoint(endpoint: Endpoint, completion: @escaping (Data) -> Void) {
+        
         for page in Page.pages {
                 let newURL = String("\(endpoint.peopleURL)\(page)")
                 let url = URL(string: newURL)!
@@ -116,44 +100,88 @@ extension JSONDownloader {
         }
 }
     
-    static func fetchPlanet(endpoint: Endpoint, completion: @escaping (Data) -> Void) {
-        for planet in Page.stringPlanetPages {
-            let url = String("\(endpoint.planetURL)\(planet)")
-            let planetURL = URL(string: url)!
-            let session = URLSession.shared
-            let task = session.dataTask(with: planetURL) { (data, response, error) in
-                if let data = data {
-                    completion(data)
-                } else if let error = error {
-                    
+    static func getPlanet(for character: Character) {
+        for page in Page.stringPlanetPages {
+            if character.homeWorld == self.base + self.planetResouce + page {
+                guard let planetString = URL(string: "\(self.base)\(self.planetResouce)\(page)") else { return }
+                let planetSession = URLSession.shared
+                let planetTask = planetSession.dataTask(with: planetString) { (data, _, _) in
+                    guard let data = data else { return }
+                    do {
+                        let planets = try JSONDecoder().decode(Planet.self, from: data)
+                        
+                        let planet = planets.name
+                        character.homeWorld = planet
+                        
+                    } catch {}
                 }
+                planetTask.resume()
             }
-            task.resume()
         }
     }
 }
 
-
-
 struct PeopleManager {
-    // How could I get the planet urls of each charcter correctly?
+    
     static var profileAttributes = [Character]()
     
     static func fetchPeople() -> [Character] {
         JSONDownloader.fetchEndpoint(endpoint: .people) { (data) in
-            
-            do {
-                let people = try JSONDecoder().decode(People.self, from: data)
-                let characters = people.results
-                for character in characters {
-                    print("\(character.name)\(character.homeWorld)")
-                    profileAttributes.append(character)
+            DispatchQueue.main.async {
+                do {
+                    let people = try JSONDecoder().decode(People.self, from: data)
+                    let characters = people.results
+                    for character in characters {
+                        print("\(character.name)\(character.homeWorld)")
+                        JSONDownloader.getPlanet(for: character)
+                        profileAttributes.append(character)
+                    }
                     
-                }
+                } catch {}
+            }
+            }
 
-            } catch {}
-        }
         return profileAttributes
+    }
+}
+
+struct VehicleManager {
+    
+    static var vehicleAttributes = [VehicleType]()
+    
+    static func fetchVehicle() -> [VehicleType] {
+        JSONDownloader.fetchEndpoint(endpoint: .vehicles) { (data) in
+            DispatchQueue.main.async {
+                do {
+                    let vehicles = try JSONDecoder().decode(Vehicle.self, from: data)
+                    let results = vehicles.results
+                    for vehicle in results {
+                        vehicleAttributes.append(vehicle)
+                    }
+                } catch {}
+            }
+        }
+        return vehicleAttributes
+    }
+    
+}
+
+struct StarshipManager {
+    static var starshipAttributes = [StarshipType]()
+    
+    static func fetchStarship() -> [StarshipType] {
+        JSONDownloader.fetchEndpoint(endpoint: .starships) { (data) in
+            DispatchQueue.main.async {
+                do {
+                    let starships = try JSONDecoder().decode(Starship.self, from: data)
+                    let results = starships.results
+                    for starship in results {
+                        starshipAttributes.append(starship)
+                    }
+                } catch {}
+            }
+        }
+        return starshipAttributes
     }
 }
 

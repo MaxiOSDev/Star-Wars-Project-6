@@ -40,7 +40,7 @@ class StarshipViewModel: NSObject, UITableViewDataSource {
     
     override init() {
         super.init()
-        let profileAttributes = JSONDownloader.starshipAttributes
+        let profileAttributes = StarshipManager.starshipAttributes
         if !profileAttributes.isEmpty {
             let attributesItem = StarshipViewModeAttributeItem(attributes: profileAttributes)
             attributes.append(attributesItem)

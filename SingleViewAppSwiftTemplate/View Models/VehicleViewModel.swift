@@ -43,7 +43,7 @@ class VehicleViewModel: NSObject, UITableViewDataSource {
    
     override init() {
         super.init()
-        let profileAttributes = JSONDownloader.vehilceAttributes
+        let profileAttributes = VehicleManager.vehicleAttributes
         if !profileAttributes.isEmpty {
             let attributesItem = VehicleViewModeAttributeItem(attributes: profileAttributes)
             attributes.append(attributesItem)
