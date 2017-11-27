@@ -21,7 +21,8 @@ class ViewController: UIViewController, CAAnimationDelegate {
     @IBOutlet var shineView: UIView!
     override func viewDidLoad() {
         super.viewDidLoad()
-        showLoadingScreen()
+       // showLoadingScreen()
+        getData()
     }
     
     override func didReceiveMemoryWarning() {
@@ -102,7 +103,11 @@ class ViewController: UIViewController, CAAnimationDelegate {
         }
     }
     
-
+    func getData() {
+        PeopleManager.fetchPeople()
+        VehicleManager.fetchVehicle()
+        StarshipManager.fetchStarship()
+    }
     
     
     

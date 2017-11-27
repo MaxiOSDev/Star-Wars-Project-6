@@ -19,6 +19,7 @@ struct PeopleManager {
                 do {
                     let people = try JSONDecoder().decode(People.self, from: data)
                     let characters = people.results
+                    
                     for character in characters {
                         characterLengthDictionary.updateValue(character.height!, forKey: character.name!)
                         for (key, value) in characterLengthDictionary {
@@ -27,6 +28,8 @@ struct PeopleManager {
                                 
                             }
                         }
+                        JSONDownloader.getVehicle(for: character)
+                        print(character.vehicles)
                         JSONDownloader.getPlanet(for: character)
                         profileAttributes.append(character)
                     }

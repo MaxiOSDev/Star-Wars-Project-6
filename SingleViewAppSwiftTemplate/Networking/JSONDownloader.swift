@@ -48,7 +48,7 @@ extension JSONDownloader {
                 let url = URL(string: newURL)!
                 let session = URLSession.shared
                 let task = session.dataTask(with: url) { (data, response, error) in
-                semaphore.signal()
+         //       semaphore.signal()
                     if let data = data {
                         completion(data)
                     } else if let urlError = error as? URLError {
@@ -64,7 +64,7 @@ extension JSONDownloader {
                 }
             
                 task.resume()
-                semaphore.wait()
+            //    semaphore.wait()
             
         }
 }
@@ -85,6 +85,28 @@ extension JSONDownloader {
                     } catch {}
                 }
                 planetTask.resume()
+            }
+        }
+    }
+    
+    static func getVehicle(for character: Character) {
+        for page in Page.stringPlanetPages {
+            for var vehicle in character.vehicles {
+                if vehicle == self.base + self.vehicleResoure + page {
+                    guard let vehicleString = URL(string: "\(self.base)\(self.vehicleResoure)\(page)") else { return }
+                    let planetSession = URLSession.shared
+                    let vehicleTask = planetSession.dataTask(with: vehicleString) { (data, _, error) in
+                        guard let data = data else { return }
+                        do {
+                            let vehicles = try JSONDecoder().decode(VehicleType.self, from: data)
+                            let associatedVehicle = vehicles.name
+                            vehicle = associatedVehicle
+                            print("\(character.name)\(vehicle)")
+                        } catch {}
+                    }
+                    
+                    vehicleTask.resume()
+                }
             }
         }
     }
