@@ -16,10 +16,7 @@ class ViewController: UIViewController, CAAnimationDelegate {
     @IBOutlet weak var vehicleIconButton: UIButton!
     @IBOutlet weak var starshipIconButton: UIButton!
     
-    @IBOutlet weak var progressView: UIProgressView!
-    
     @IBOutlet weak var refreshIconButton: UIButton!
-    @IBOutlet weak var refreshIndicator: UIActivityIndicatorView!
     @IBOutlet var loadingView: UIView!
     @IBOutlet var shineView: UIView!
     override func viewDidLoad() {
@@ -81,7 +78,8 @@ class ViewController: UIViewController, CAAnimationDelegate {
     }
     
     func animateShineView() {
-        UIView.animate(withDuration: 1, delay: 0.2, options: [], animations: {
+        
+        UIView.animate(withDuration: 1, delay: 0.2, options: [.autoreverse], animations: {
             self.shineView.transform = CGAffineTransform(translationX: 0, y: -800)
         }) { (success) in
             DispatchQueue.main.async {
