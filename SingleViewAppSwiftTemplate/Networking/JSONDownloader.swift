@@ -98,13 +98,15 @@ extension JSONDownloader {
                     let vehicleTask = planetSession.dataTask(with: vehicleString) { (data, _, error) in
                         guard let data = data else { return }
                         do {
+                            
+                            print("BEFORE \(vehicle)")
+                            
                             let vehicles = try JSONDecoder().decode(VehicleType.self, from: data)
-                            let associatedVehicle = vehicles.name
-                            print("AssociatedVehicle \(associatedVehicle)")
-                            vehicle = associatedVehicle
-                            print("Vehicle: \(vehicle)")
-                          //  character.vehicles.removeAll()
-                            character.vehicles.append(vehicle)
+                            
+                            vehicle = vehicles.name
+                            print("AFTER: \(vehicle)")
+                            
+                            
                         } catch {}
                     }
                     

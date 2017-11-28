@@ -32,6 +32,7 @@ class Character: Codable {
     var homeWorld: String?
     var vehicles: [String]
     var starships: [String]
+    
     enum CodingKeys: String, CodingKey {
         case name
         case height
