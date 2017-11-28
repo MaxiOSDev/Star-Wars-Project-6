@@ -9,6 +9,11 @@
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="Futura.ttc">
+            <string>Futura-Medium</string>
+        </array>
+    </customFonts>
     <scenes>
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
@@ -174,12 +179,20 @@
                                 </userDefinedRuntimeAttribute>
                             </userDefinedRuntimeAttributes>
                         </view>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loading Holocron" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qVL-9h-VNh">
+                            <rect key="frame" x="55" y="445" width="163" height="26"/>
+                            <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="20"/>
+                            <color key="textColor" red="1" green="0.14913141730000001" blue="0.0" alpha="0.75904323630000003" colorSpace="custom" customColorSpace="sRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstItem="UGj-tR-Bpk" firstAttribute="top" secondItem="pwV-y7-076" secondAttribute="top" id="64v-Z6-zgk"/>
                         <constraint firstAttribute="trailing" secondItem="UGj-tR-Bpk" secondAttribute="trailing" id="7ip-uR-m9u"/>
+                        <constraint firstItem="qVL-9h-VNh" firstAttribute="top" secondItem="pwV-y7-076" secondAttribute="top" constant="445" id="IMh-z9-Frl"/>
                         <constraint firstAttribute="bottom" secondItem="UGj-tR-Bpk" secondAttribute="bottom" id="OBq-FH-Gvk"/>
+                        <constraint firstItem="qVL-9h-VNh" firstAttribute="leading" secondItem="pwV-y7-076" secondAttribute="leading" constant="55" id="QXn-uR-6lh"/>
                         <constraint firstItem="UGj-tR-Bpk" firstAttribute="leading" secondItem="pwV-y7-076" secondAttribute="leading" id="dO1-bh-t5z"/>
                     </constraints>
                 </view>

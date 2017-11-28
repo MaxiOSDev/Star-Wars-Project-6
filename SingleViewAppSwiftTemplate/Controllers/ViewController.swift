@@ -86,6 +86,7 @@ class ViewController: UIViewController, CAAnimationDelegate {
             //   JSONDownloader.semaphore.signal()
         }
         UIView.animate(withDuration: 1, delay: 0.2, options: [.autoreverse, .repeat], animations: {
+            self.animateLabel()
             UIView.setAnimationRepeatCount(5)
             self.shineView.transform = CGAffineTransform(translationX: 0, y: -800)
         }) { (success) in
@@ -112,6 +113,24 @@ class ViewController: UIViewController, CAAnimationDelegate {
         }
     }
     
+    func animateLabel() {
+        let lay = CAReplicatorLayer()
+        lay.frame = CGRect(x: 225, y: 460, width: 100, height: 20)  // CGRect(0,0,100,20)
+        let bar = CALayer()
+        bar.frame = CGRect(x: 0, y: 0, width: 5, height: 5)  // CGRect(0,0,10,20)
+        bar.backgroundColor = UIColor.red.cgColor
+        lay.addSublayer(bar)
+        lay.instanceCount = 4
+        lay.instanceTransform = CATransform3DMakeTranslation(20, 0, 0)
+        let anim = CABasicAnimation(keyPath: #keyPath(CALayer.opacity))
+        anim.fromValue = 1.0
+        anim.toValue = 0.2
+        anim.duration = 1
+        anim.repeatCount = .infinity
+        bar.add(anim, forKey: nil)
+        lay.instanceDelay = anim.duration / Double(lay.instanceCount)
+        self.loadingView.layer.addSublayer(lay)
+    }
     
     
 //    func checkConnection() {
