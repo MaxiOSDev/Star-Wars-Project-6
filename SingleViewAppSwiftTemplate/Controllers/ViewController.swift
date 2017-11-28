@@ -21,8 +21,8 @@ class ViewController: UIViewController, CAAnimationDelegate {
     @IBOutlet var shineView: UIView!
     override func viewDidLoad() {
         super.viewDidLoad()
-       // showLoadingScreen()
-        getData()
+        showLoadingScreen()
+      //  getData()
     }
     
     override func didReceiveMemoryWarning() {
@@ -79,16 +79,17 @@ class ViewController: UIViewController, CAAnimationDelegate {
     }
     
     func animateShineView() {
-        
-        UIView.animate(withDuration: 1, delay: 0.2, options: [.autoreverse], animations: {
+        DispatchQueue.main.async {
+            PeopleManager.fetchPeople()
+            VehicleManager.fetchVehicle()
+            StarshipManager.fetchStarship()
+            //   JSONDownloader.semaphore.signal()
+        }
+        UIView.animate(withDuration: 2, delay: 0.2, options: [.autoreverse, .repeat], animations: {
+            UIView.setAnimationRepeatCount(4)
             self.shineView.transform = CGAffineTransform(translationX: 0, y: -800)
         }) { (success) in
-            DispatchQueue.main.async {
-                PeopleManager.fetchPeople()
-                VehicleManager.fetchVehicle()
-                StarshipManager.fetchStarship()
-                JSONDownloader.semaphore.signal()
-            }
+            
             self.hideLoadingScreen()
         }
     }
