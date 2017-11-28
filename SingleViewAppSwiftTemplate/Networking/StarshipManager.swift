@@ -27,7 +27,11 @@ struct StarshipManager {
                         }
                         starshipAttributes.append(starship)
                     }
-                } catch {}
+                } catch JSONDownloaderError.jsonParsingFailure {
+                    print("Parsing Failure!")
+                } catch  {
+                    print("\(error)")
+                }
             }
         }
         return starshipAttributes

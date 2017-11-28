@@ -38,7 +38,11 @@ struct PeopleManager {
                         profileAttributes.append(character)
                     }
                     
-                } catch {}
+                } catch JSONDownloaderError.jsonParsingFailure {
+                    print("Parsing Failure!")
+                } catch  {
+                    print("\(error)")
+                }
             }
         }
         

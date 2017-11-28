@@ -29,7 +29,11 @@ struct VehicleManager {
                         }
                         vehicleAttributes.append(vehicle)
                     }
-                } catch {}
+                } catch JSONDownloaderError.jsonParsingFailure {
+                    print("Parsing Failure!")
+                } catch  {
+                    print("\(error)")
+                }
             }
         }
         return vehicleAttributes

@@ -85,8 +85,8 @@ class ViewController: UIViewController, CAAnimationDelegate {
             StarshipManager.fetchStarship()
             //   JSONDownloader.semaphore.signal()
         }
-        UIView.animate(withDuration: 2, delay: 0.2, options: [.autoreverse, .repeat], animations: {
-            UIView.setAnimationRepeatCount(4)
+        UIView.animate(withDuration: 1, delay: 0.2, options: [.autoreverse, .repeat], animations: {
+            UIView.setAnimationRepeatCount(5)
             self.shineView.transform = CGAffineTransform(translationX: 0, y: -800)
         }) { (success) in
             
