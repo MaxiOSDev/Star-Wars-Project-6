@@ -31,8 +31,9 @@ struct PeopleManager {
                         
                         
                         JSONDownloader.getVehicle(for: character)
-                        print("IN MANAGER \(character.name)\(character.vehicles)")
-                        
+                        print("IN MANAGER A.V \(character.name)\(character.vehicles)")
+                        JSONDownloader.getStarShip(for: character)
+                        print("IN MANAGER A.S \(character.name)\(character.starships)")
                         JSONDownloader.getPlanet(for: character)
                         profileAttributes.append(character)
                     }

@@ -515,7 +515,8 @@
                                             <color key="titleColor" red="0.56881684064865112" green="0.79216665029525757" blue="0.89733511209487915" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <connections>
-                                            <segue destination="mN3-RS-FbP" kind="presentation" id="J0h-EJ-SFd"/>
+                                            <action selector="segueToPopUp:" destination="Xd8-Eh-uNV" eventType="touchUpInside" id="5fZ-hi-UU1"/>
+                                            <segue destination="mN3-RS-FbP" kind="presentation" identifier="PopupSegue" id="J0h-EJ-SFd"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xdu-y4-ZEV">
@@ -524,6 +525,9 @@
                                         <state key="normal" title="Associated Starships">
                                             <color key="titleColor" red="0.56881684060000004" green="0.7921666503" blue="0.89733511210000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
+                                        <connections>
+                                            <action selector="segueToPopUp:" destination="Xd8-Eh-uNV" eventType="touchUpInside" id="hfu-3t-Ukw"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                             </stackView>
@@ -558,6 +562,8 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="asButton" destination="Xdu-y4-ZEV" id="hoL-TN-JZj"/>
+                        <outlet property="avButton" destination="fZC-eX-ZIk" id="wkQ-oZ-0qX"/>
                         <outlet property="backArrowButton" destination="bhj-kp-MIy" id="eZf-XA-TJn"/>
                         <outlet property="convertCurrencyLabel" destination="dT3-Rb-eLR" id="1GR-ih-317"/>
                         <outlet property="dataPickerView" destination="i9d-PG-6p6" id="oD1-HW-ZPy"/>
@@ -589,13 +595,17 @@
                                 <rect key="frame" x="67" y="269" width="240" height="128"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PlaceHolder Text" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TWy-DG-w7g">
-                                        <rect key="frame" x="0.0" y="28" width="240" height="12"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                                        <nil key="textColor"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="240" height="90"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="10"/>
+                                        <color key="textColor" red="0.016804177310000001" green="0.19835099580000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HRf-sH-D6s">
-                                        <rect key="frame" x="93" y="90" width="54" height="30"/>
+                                        <rect key="frame" x="0.0" y="90" width="240" height="38"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="38" id="CMp-sp-n3h"/>
+                                        </constraints>
+                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <state key="normal" title="Dismiss"/>
                                         <connections>
                                             <action selector="closePopUp:" destination="mN3-RS-FbP" eventType="touchUpInside" id="mHU-O4-BID"/>
@@ -604,15 +614,15 @@
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstItem="HRf-sH-D6s" firstAttribute="leading" secondItem="Juh-xF-Yd5" secondAttribute="leading" constant="93" id="7WE-Bf-ABo"/>
+                                    <constraint firstItem="TWy-DG-w7g" firstAttribute="leading" secondItem="Juh-xF-Yd5" secondAttribute="leading" id="0gQ-3U-895"/>
+                                    <constraint firstAttribute="trailing" secondItem="TWy-DG-w7g" secondAttribute="trailing" id="1iM-Lo-4w5"/>
+                                    <constraint firstItem="HRf-sH-D6s" firstAttribute="leading" secondItem="Juh-xF-Yd5" secondAttribute="leading" id="9Tk-Bl-NLd"/>
+                                    <constraint firstAttribute="trailing" secondItem="HRf-sH-D6s" secondAttribute="trailing" id="FOI-Xz-Y2k"/>
                                     <constraint firstAttribute="width" constant="240" id="L60-ST-lU3"/>
-                                    <constraint firstAttribute="trailing" secondItem="HRf-sH-D6s" secondAttribute="trailing" constant="93" id="Lqp-Nk-9Y0"/>
-                                    <constraint firstItem="TWy-DG-w7g" firstAttribute="leading" secondItem="Juh-xF-Yd5" secondAttribute="leading" id="NcR-zH-ysr"/>
-                                    <constraint firstItem="TWy-DG-w7g" firstAttribute="top" secondItem="Juh-xF-Yd5" secondAttribute="top" constant="28" id="RqL-34-X9B"/>
-                                    <constraint firstAttribute="bottom" secondItem="HRf-sH-D6s" secondAttribute="bottom" constant="8" id="bpi-qR-W9W"/>
-                                    <constraint firstItem="HRf-sH-D6s" firstAttribute="top" secondItem="TWy-DG-w7g" secondAttribute="bottom" constant="50" id="eAS-N5-i0E"/>
-                                    <constraint firstAttribute="trailing" secondItem="TWy-DG-w7g" secondAttribute="trailing" id="iFI-lY-4AV"/>
+                                    <constraint firstItem="TWy-DG-w7g" firstAttribute="top" secondItem="Juh-xF-Yd5" secondAttribute="top" id="XAz-77-vsQ"/>
+                                    <constraint firstItem="HRf-sH-D6s" firstAttribute="top" secondItem="TWy-DG-w7g" secondAttribute="bottom" id="YM8-5V-hs8"/>
                                     <constraint firstAttribute="height" constant="128" id="rpJ-X2-m9L"/>
+                                    <constraint firstAttribute="bottom" secondItem="HRf-sH-D6s" secondAttribute="bottom" id="uov-wY-hIX"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="color" keyPath="firstColor">
@@ -644,7 +654,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="As3-UR-UZM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2596" y="116"/>
+            <point key="canvasLocation" x="2596" y="115.59220389805098"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="mlB-Z4-xQg">

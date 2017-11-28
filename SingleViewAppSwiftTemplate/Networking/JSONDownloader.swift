@@ -94,8 +94,8 @@ extension JSONDownloader {
             for var vehicle in character.vehicles {
                 if vehicle == self.base + self.vehicleResoure + page {
                     guard let vehicleString = URL(string: "\(self.base)\(self.vehicleResoure)\(page)") else { return }
-                    let planetSession = URLSession.shared
-                    let vehicleTask = planetSession.dataTask(with: vehicleString) { (data, _, error) in
+                    let session = URLSession.shared
+                    let vehicleTask = session.dataTask(with: vehicleString) { (data, _, error) in
                         guard let data = data else { return }
                         do {
                             
@@ -106,11 +106,39 @@ extension JSONDownloader {
                             vehicle = vehicles.name
                             print("AFTER: \(vehicle)")
                             
+                            character.associatedVehicles.append(vehicle)
                             
                         } catch {}
                     }
                     
                     vehicleTask.resume()
+                }
+            }
+        }
+    }
+    
+    static func getStarShip(for character: Character) {
+        for page in Page.stringPlanetPages {
+            for var starship in character.starships {
+                if starship == self.base + self.starshipResource + page {
+                    guard let starshipString = URL(string: "\(self.base)\(self.starshipResource)\(page)") else { return }
+                    let session = URLSession.shared
+                    let shipTask = session.dataTask(with: starshipString) { (data, _, error) in
+                        guard let data = data else { return }
+                        do {
+                            print("Before \(starship)")
+                            
+                            let starships = try JSONDecoder().decode(StarshipType.self, from: data)
+                            
+                            starship = starships.name
+                            print("AFTER: \(starship)")
+                            
+                            character.associatedStarships.append(starship)
+                        } catch {}
+                        
+                    }
+                    
+                    shipTask.resume()
                 }
             }
         }

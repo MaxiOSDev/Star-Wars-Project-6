@@ -36,6 +36,8 @@ class DataViewController: UIViewController {
     
     @IBOutlet weak var backArrowButton: UIBarButtonItem!
     
+    @IBOutlet weak var avButton: UIButton!
+    @IBOutlet weak var asButton: UIButton!
     
     
     override func viewDidLoad() {
@@ -100,14 +102,30 @@ class DataViewController: UIViewController {
    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let assocaitedVehiclesVC = segue.destination as? AVPopUpController {
             for character in characterValues {
-                if pickerIdentifier == character.name {
-                    assocaitedVehiclesVC.avLabelText = "\(character.vehicles)"
+                if pickerIdentifier == character.name && character.associatedVehicles.isEmpty == false && character.associatedStarships.isEmpty == false {
+                    assocaitedVehiclesVC.avLabelText = "Vehicles: \(character.associatedVehicles.minimalDescription)\n Starships: \(character.associatedStarships.minimalDescription)"
+                    
+                } else if pickerIdentifier == character.name && character.associatedVehicles.isEmpty == false && character.associatedStarships.isEmpty == true {
+                    assocaitedVehiclesVC.avLabelText = "Vehicles: \(character.associatedVehicles.minimalDescription)\n Starships: No Assocaited Starships"
+                } else if pickerIdentifier == character.name && character.associatedStarships.isEmpty == false && character.associatedVehicles.isEmpty == true {
+                    assocaitedVehiclesVC.avLabelText = "Vehicles: No Associated Vehicles\n Starships: \(character.associatedStarships.minimalDescription)"
+                } else if pickerIdentifier == character.name && character.associatedStarships.isEmpty == true && character.associatedVehicles.isEmpty == true {
+                    assocaitedVehiclesVC.avLabelText = "No Associated Vehicles or Starships"
                 }
                 
             }
             
         }
     }
+    
+    @IBAction func segueToPopUp(_ sender: UIButton) {
+        if sender == avButton {
+            performSegue(withIdentifier: "PopupSegue", sender: self)
+        } else if sender == asButton {
+            performSegue(withIdentifier: "PopupSegue", sender: self)
+        }
+    }
+    
     
 }
 
@@ -156,13 +174,14 @@ extension DataViewController: UIPickerViewDelegate, UIPickerViewDataSource, UITa
                 pickerIdentifier = characterValues[row].name
                 cell.usdLabel.isHidden = true
                 cell.creditsLabel.isHidden = true
-                
+               isAssociatedButtonHidden()
             }
         } else if dataType == DataType.vehicle {
             let indexPath = IndexPath(row: 1, section: 0)
             if let cell = self.dataTableView.cellForRow(at: indexPath) as? CostHomeCell {
                 pickerIdentifier = vehicleValues[row].name
                 hideCurrencyConverter()
+                isAssociatedButtonHidden()
                 cell.creditsLabel.textColor = .white
                 cell.usdLabel.textColor = .lightGray
                 convertCurrencyLabel.isEnabled = true
@@ -172,6 +191,7 @@ extension DataViewController: UIPickerViewDelegate, UIPickerViewDataSource, UITa
             if let cell = self.dataTableView.cellForRow(at: indexPath) as? CostHomeCell {
                 pickerIdentifier = shipValues[row].name
                 hideCurrencyConverter()
+                isAssociatedButtonHidden()
                 cell.creditsLabel.textColor = .white
                 cell.usdLabel.textColor = .lightGray
                 convertCurrencyLabel.isEnabled = true
@@ -264,6 +284,19 @@ extension DataViewController: UIPickerViewDelegate, UIPickerViewDataSource, UITa
         }
         
         
+    }
+    
+    func isAssociatedButtonHidden() {
+        var array = [avButton, asButton]
+        if dataType == DataType.character {
+            for button in array {
+                button?.isHidden = false
+            }
+        } else {
+            for button in array {
+                button?.isHidden = true
+            }
+        }
     }
     
     func smallestCharacter() {
@@ -454,6 +487,11 @@ extension String {
     }
 }
 
+extension Array {
+    var minimalDescription: String {
+        return map { "\($0)" }.joined(separator: ", ")
+    }
+}
 
 
 
