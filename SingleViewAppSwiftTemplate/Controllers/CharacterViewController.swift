@@ -254,12 +254,7 @@ extension DataViewController: UIPickerViewDelegate, UIPickerViewDataSource, UITa
                 
                     showAlertMessegeToUser.addAction(okayAction)
                 
-                if eventNameTextField.text != ""  {
-                    
-                } else if eventNameTextField.text == "0" {
-                    
-                    alertController.actions[0].isEnabled = false 
-                }
+                
                 
             })
             
@@ -272,6 +267,7 @@ extension DataViewController: UIPickerViewDelegate, UIPickerViewDataSource, UITa
                 textField.placeholder = "Enter Exchange Rate"
                 textField.keyboardType = UIKeyboardType.numberPad
                 textField.addTarget(self, action: #selector(self.textChanged), for: .editingChanged)
+                textField.maxLength = 6
                 textField.delegate = self
                 
             }
@@ -295,7 +291,7 @@ extension DataViewController: UIPickerViewDelegate, UIPickerViewDataSource, UITa
         var resp: UIResponder! = textField
         while !(resp is UIAlertController) { resp = resp.next }
         let alert = resp as! UIAlertController
-        alert.actions[0].isEnabled = (textField.text != "" )
+        alert.actions[0].isEnabled = (textField.text != "" && textField.text != "0" && textField.text != "00" && textField.text != "000" && textField.text != "0000" && textField.text != "00000" && textField.text != "000000" && textField.text != "0000000")
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
@@ -304,6 +300,8 @@ extension DataViewController: UIPickerViewDelegate, UIPickerViewDataSource, UITa
         }
         return true
     }
+    
+    
     
     func hideCurrencyConverter() {
        
