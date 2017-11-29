@@ -23,6 +23,7 @@ class ViewController: UIViewController, CAAnimationDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         showLoadingScreen()
+        refreshIconButton.imageView?.contentMode = .scaleAspectFit
       //  getData()
     }
     
@@ -58,6 +59,7 @@ class ViewController: UIViewController, CAAnimationDelegate {
         fullRotation.duration = 0.5
         fullRotation.repeatCount = 5
         refreshIconButton.layer.add(fullRotation, forKey: "360")
+        
     }
     
     // Helper Methods
@@ -77,7 +79,7 @@ class ViewController: UIViewController, CAAnimationDelegate {
         }
         
     }
-    
+    // Shine View on my loading screen
     func animateShineView() {
         DispatchQueue.main.async {
             PeopleManager.fetchPeople()
@@ -94,7 +96,7 @@ class ViewController: UIViewController, CAAnimationDelegate {
             self.hideLoadingScreen()
         }
     }
-    
+    // Hide loading screen
     func hideLoadingScreen() {
         UIView.animate(withDuration: 0.1, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: [], animations: {
             self.loadingView.transform = CGAffineTransform(translationX: 0, y: 10)

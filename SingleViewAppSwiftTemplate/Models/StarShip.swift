@@ -7,7 +7,7 @@
 //
 
 import Foundation
-
+// Starship Model within results
 struct StarshipType: Codable {
     let name: String
     let make: String
@@ -16,7 +16,7 @@ struct StarshipType: Codable {
     let shipClass: String
     let crewAmount: String
     
-    enum CodingKeys: String, CodingKey {
+    enum CodingKeys: String, CodingKey { // To read json correctly
         case name
         case make = "model"
         case cost = "cost_in_credits"
@@ -25,7 +25,7 @@ struct StarshipType: Codable {
         case crewAmount = "crew"
     }
 }
-
+// Outside of results
 struct Starship: Codable {
     let count: Int
     let next: String?
