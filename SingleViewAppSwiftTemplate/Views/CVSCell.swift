@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+// Cells for TableView
 class CVSCell: UITableViewCell {
     
    static let reuseIdentifier = "BornMakeCell"

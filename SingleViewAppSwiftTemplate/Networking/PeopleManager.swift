@@ -7,20 +7,21 @@
 //
 
 import Foundation
-
+// Character Manager
 struct PeopleManager {
     
-    static var profileAttributes = [Character]()
-    static var characterLengthDictionary = [String: String]()
-    static var characterDictionary = [String: Double]()
+    static var profileAttributes = [Character]() // Holds all Characters
+    static var characterLengthDictionary = [String: String]() // Needed dictionary for converting Metric to Feet
+    static var characterDictionary = [String: Double]() // Needed dictionary for converting Metric to Feet
+    // Fetches All Characters
     static func fetchPeople() -> [Character] {
+        // That method that retrieves endpoint
         JSONDownloader.fetchEndpoint(endpoint: .people) { (data) in
             DispatchQueue.main.async {
                 do {
-                    let people = try JSONDecoder().decode(People.self, from: data)
+                    let people = try JSONDecoder().decode(People.self, from: data) // Yay for swift 4!
                     let characters = people.results
-                    
-                    for character in characters {
+                    for character in characters { // The way I updated values for dictionarys form string: double to string: string
                         characterLengthDictionary.updateValue(character.height!, forKey: character.name!)
                         for (key, value) in characterLengthDictionary {
                             if let valueDouble = Double(value) {
@@ -29,16 +30,13 @@ struct PeopleManager {
                             }
                         }
                         
-                        
-                        JSONDownloader.getVehicle(for: character)
-                        print("IN MANAGER A.V \(character.name)\(character.vehicles)")
-                        JSONDownloader.getStarShip(for: character)
-                        print("IN MANAGER A.S \(character.name)\(character.starships)")
-                        JSONDownloader.getPlanet(for: character)
-                        profileAttributes.append(character)
+                        JSONDownloader.getVehicle(for: character) // Gets Associated Vehicles
+                        JSONDownloader.getStarShip(for: character) // Gets Associated Starships
+                        JSONDownloader.getPlanet(for: character) // Gets Homeworld
+                        profileAttributes.append(character) // Appends to profileAttributes array
                     }
                     
-                } catch JSONDownloaderError.jsonParsingFailure {
+                } catch JSONDownloaderError.jsonParsingFailure { // Error Handling
                     print("Parsing Failure!")
                 } catch  {
                     print("\(error)")

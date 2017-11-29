@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+// Model Popups are neat!
 class AVPopUpController: UIViewController {
 
     @IBOutlet weak var avLabel: UILabel!
@@ -18,7 +18,7 @@ class AVPopUpController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        avLabel.text = avLabelText
+        avLabel.text = avLabelText // I love using something i used in a previous project
     }
 
     override func didReceiveMemoryWarning() {

@@ -8,8 +8,10 @@
 
 import Foundation
 
+// JSONDownloader Object
+
 class JSONDownloader {
-    
+    // For my endpoint method
     enum Endpoint: String {
         case people
         case planets
@@ -30,8 +32,8 @@ class JSONDownloader {
         
     }
     
-    static let semaphore = DispatchSemaphore(value: 0)
-    
+ //   static let semaphore = DispatchSemaphore(value: 0)
+    // Used for getPlanet & getVehicle, getStarships
     static let base: String = "https://swapi.co/api/"
     static let peopleResource: String = "people/"
     static let vehicleResoure: String = "vehicles/"
@@ -41,6 +43,7 @@ class JSONDownloader {
 }
 
 extension JSONDownloader {
+    // Fetches Endpoint from nested enum
     static func fetchEndpoint(endpoint: Endpoint, completion: @escaping (Data) -> Void) {
 
         for page in Page.pages {
@@ -68,7 +71,7 @@ extension JSONDownloader {
             
         }
 }
-    
+    // Needed to get planet showing up correctly
     static func getPlanet(for character: Character) {
         for page in Page.stringPlanetPages {
             if character.homeWorld == self.base + self.planetResouce + page {
@@ -88,7 +91,7 @@ extension JSONDownloader {
             }
         }
     }
-    
+    // Gets associated Vehicles
     static func getVehicle(for character: Character) {
         for page in Page.stringPlanetPages {
             for var vehicle in character.vehicles {
@@ -120,7 +123,7 @@ extension JSONDownloader {
             }
         }
     }
-    
+    // Gets Associated Starships
     static func getStarShip(for character: Character) {
         for page in Page.stringPlanetPages {
             for var starship in character.starships {

@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+// Cells for TableView
 class CrewHairCell: UITableViewCell {
     
     static let reuseIdentifier = "CrewHairCell"

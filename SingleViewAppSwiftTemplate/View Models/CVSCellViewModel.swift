@@ -9,6 +9,8 @@
 import Foundation
 import UIKit
 
+// Character View Model
+
 enum ProfileViewModelItemType {
     case home
     case cost

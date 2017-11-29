@@ -8,6 +8,7 @@
 
 import UIKit
 
+// Cells for TableView
 class ClassEyesCell: UITableViewCell {
     
     static let reuseIdentifier = "ClassEyesCell"

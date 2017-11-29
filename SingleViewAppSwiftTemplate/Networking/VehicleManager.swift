@@ -7,19 +7,19 @@
 //
 
 import Foundation
-
+ // Vehicle Manager
 struct VehicleManager {
     
-    static var vehicleAttributes = [VehicleType]()
-    static var vehicleLengthDictionary = [String: String]()
-    static var vehicleDictionary = [String: Double]()
+    static var vehicleAttributes = [VehicleType]() // Holds all vehicles
+    static var vehicleLengthDictionary = [String: String]() // Needed Dictionary to convert meters to feet
+    static var vehicleDictionary = [String: Double]() // Needed Dictionary to convert meters to feet
     static func fetchVehicle() -> [VehicleType] {
         JSONDownloader.fetchEndpoint(endpoint: .vehicles) { (data) in
             DispatchQueue.main.async {
                 do {
                     let vehicles = try JSONDecoder().decode(Vehicle.self, from: data)
                     let results = vehicles.results
-                    for vehicle in results {
+                    for vehicle in results { // changes from one dictionary to another
                         vehicleLengthDictionary.updateValue(vehicle.length, forKey: vehicle.name)
                         for (key, value) in vehicleLengthDictionary {
                             if let valueDouble = Double(value) {
@@ -27,9 +27,9 @@ struct VehicleManager {
                                 
                             }
                         }
-                        vehicleAttributes.append(vehicle)
+                        vehicleAttributes.append(vehicle) // adding all vehicles to array
                     }
-                } catch JSONDownloaderError.jsonParsingFailure {
+                } catch JSONDownloaderError.jsonParsingFailure { // Error handling
                     print("Parsing Failure!")
                 } catch  {
                     print("\(error)")

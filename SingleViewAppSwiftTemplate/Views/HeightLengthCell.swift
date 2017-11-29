@@ -8,56 +8,7 @@
 
 import UIKit
 
-extension String {
-    
-    func stringsMatchingRegularExpression(expression exp:String) -> [String]? {
-        var strArray:[String]?
-        var rangeArray:[NSRange]?
-        let strLength = self.characters.count
-        var startOfRange = 0
-        do {
-            let regexString = try NSRegularExpression(pattern: exp, options: [])
-            while startOfRange <= strLength {
-                let rangeOfMatch = regexString.rangeOfFirstMatch(in: self, options: [], range: NSMakeRange(startOfRange, strLength-startOfRange))
-                if let rArray = rangeArray {
-                    rangeArray = rArray + [rangeOfMatch]
-                }
-                else {
-                    rangeArray = [rangeOfMatch]
-                }
-                startOfRange = rangeOfMatch.location+rangeOfMatch.length
-                
-                
-            }
-            if let ranArr = rangeArray {
-                for r in ranArr {
-                    
-                    if !NSEqualRanges(r, NSMakeRange(NSNotFound, 0)) {
-                        self.index(startIndex, offsetBy: r.length)
-                        
-                        let r =  self.index(startIndex, offsetBy:r.location)..<self.index(startIndex, offsetBy:r.location + r.length)
-                        
-                        // return the value
-                        let substringForMatch = self.substring(with: r)
-                        if let sArray = strArray {
-                            strArray = sArray + [substringForMatch]
-                        }
-                        else {
-                            strArray = [substringForMatch]
-                        }
-                        
-                    }
-                    
-                }
-            }
-        }
-        catch {
-            // catch errors here
-        }
-        
-        return strArray
-    }
-}
+// Cells for TableView
 
 class HeightCostCell: UITableViewCell {
     

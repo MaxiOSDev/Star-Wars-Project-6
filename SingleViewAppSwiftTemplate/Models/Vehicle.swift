@@ -7,7 +7,7 @@
 //
 
 import Foundation
-
+// My Vehicle Model
 struct VehicleType: Codable {
     let name: String
     let make: String
@@ -16,7 +16,7 @@ struct VehicleType: Codable {
     let vehicleClass: String
     let crewAmount: String
     
-    enum CodingKeys: String, CodingKey {
+    enum CodingKeys: String, CodingKey { // Coding Keys to the rescue!
         case name
         case make = "model"
         case cost = "cost_in_credits"
@@ -25,12 +25,12 @@ struct VehicleType: Codable {
         case crewAmount = "crew"
     }
 }
-
+// Model to enter results
 struct Vehicle: Codable {
     let count: Int
     let next: String?
     let previous: String?
-    let results: [VehicleType]
+    let results: [VehicleType] // Each result is of type VehicleType
     
     enum CodingKeys: String, CodingKey {
         case count

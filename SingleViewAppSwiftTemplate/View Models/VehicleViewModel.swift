@@ -9,8 +9,7 @@
 import Foundation
 import UIKit
 
-
-
+// Vehicle View Model
 
 enum VehicleProfileItemType {
     case home

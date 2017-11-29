@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+// I use these to add addtional features to the IB credit to Mark Moeykins
 @IBDesignable
 
 class ThreePointGradientView: UIView {

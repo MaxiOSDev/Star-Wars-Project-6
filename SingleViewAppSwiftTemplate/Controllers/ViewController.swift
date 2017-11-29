@@ -7,11 +7,11 @@
 //
 import Foundation
 import UIKit
-import QuartzCore
+import QuartzCore // For my stormtrooper animation that doesn't refresh json data anymore, but it used to.
 
 
 class ViewController: UIViewController, CAAnimationDelegate {
-    
+    // Outlets
     @IBOutlet weak var characterIconButton: UIButton!
     @IBOutlet weak var vehicleIconButton: UIButton!
     @IBOutlet weak var starshipIconButton: UIButton!
@@ -19,6 +19,7 @@ class ViewController: UIViewController, CAAnimationDelegate {
     @IBOutlet weak var refreshIconButton: UIButton!
     @IBOutlet var loadingView: UIView!
     @IBOutlet var shineView: UIView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         showLoadingScreen()
@@ -31,7 +32,6 @@ class ViewController: UIViewController, CAAnimationDelegate {
     }
     
     @IBAction func characterDataBase(_ sender: UIButton) {
-        
         dataType = DataType.character
     }
     
@@ -45,7 +45,7 @@ class ViewController: UIViewController, CAAnimationDelegate {
     }
     
     @IBAction func refreshView(_ sender: UIButton) {
-     //   checkConnection()
+     //   checkConnection() Used to check connection a very outdated way, but thanks to URLError handling I can check it another way now
         toggleRefresh()
     }
     
@@ -105,14 +105,14 @@ class ViewController: UIViewController, CAAnimationDelegate {
         }
     }
     
-    func getData() {
+    func getData() { // For testing Purposes
         DispatchQueue.main.async {
             PeopleManager.fetchPeople()
             VehicleManager.fetchVehicle()
             StarshipManager.fetchStarship()
         }
     }
-    
+    // Animates not really the label, but the dots/bars in the loading screen
     func animateLabel() {
         let lay = CAReplicatorLayer()
         lay.frame = CGRect(x: 225, y: 460, width: 100, height: 20)  // CGRect(0,0,100,20)
@@ -132,39 +132,14 @@ class ViewController: UIViewController, CAAnimationDelegate {
         self.loadingView.layer.addSublayer(lay)
     }
     
-    
-//    func checkConnection() {
-//        func do_stuff(completion:(() -> Void)?) -> () {
-//            if InternetChecker.isConnectedToNetwork() {
-//                print("Yes Internet")
-//                PeopleManager.fetchPeople()
-//                JSONDownloader.vehilceDownload()
-//                JSONDownloader.starshipDownload()
-//                enableIconButtons()
-//                if completion != nil {
-//                    return completion!()
-//                }
-//            } else {
-//                let alert = UIAlertController(title: "Error!", message: "No Internet Connection", preferredStyle: .alert)
-//                let defaultAction = UIAlertAction(title: "Okay", style: .default, handler: nil)
-//                alert.addAction(defaultAction)
-//                self.present(alert, animated: true, completion: nil)
-//                disableIconButtons()
-//                print("No Internet")
-//            }
-//        }
-//
-//    }
-    
-  
-    
+    // I would disable Icon Buttons if there was no interenet connection
     func disableIconButtons() {
         let iconButtons = [characterIconButton, vehicleIconButton, starshipIconButton]
         for button in iconButtons {
             button?.isEnabled = false
         }
     }
-    
+    // I would then enable them if there was internet connection
     func enableIconButtons() {
         let iconButtons = [characterIconButton, vehicleIconButton, starshipIconButton]
         for button in iconButtons {

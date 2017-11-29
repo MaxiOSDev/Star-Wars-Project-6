@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+// Cells for TableView
 class CostHomeCell: UITableViewCell {
     
     static let reuseIdentifier = "CostHomeCell"

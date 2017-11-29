@@ -9,6 +9,8 @@
 import Foundation
 import UIKit
 
+// Starship View Model
+
 enum StarshipProfileItemType {
     case home
     case cost
