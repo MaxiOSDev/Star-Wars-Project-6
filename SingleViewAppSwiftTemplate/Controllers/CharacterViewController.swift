@@ -10,7 +10,7 @@ import UIKit
 
 var pickerIdentifier: String?
 
-class DataViewController: UIViewController {
+class DataViewController: UIViewController, UITextFieldDelegate {
     
     
     fileprivate let viewModel = CVSViewModel()
@@ -227,6 +227,10 @@ extension DataViewController: UIPickerViewDelegate, UIPickerViewDataSource, UITa
             
             let alertController = UIAlertController(title: "Set Exchange Rate", message: "Set Galatic Credit Rate to USD", preferredStyle: .alert)
             
+            let showAlertMessegeToUser = UIAlertController(title: "Alert!", message: "Field should not be empty, Please enter an exchange rate", preferredStyle: .alert)
+            
+            let okayAction = UIAlertAction(title: "Understood", style: .default, handler: nil)
+            
             let saveAction = UIAlertAction(title: "Convert", style: .default, handler: {
                 alert -> Void in
                 
@@ -248,12 +252,13 @@ extension DataViewController: UIPickerViewDelegate, UIPickerViewDataSource, UITa
                     cell.creditsLabel.textColor = UIColor.lightGray
                     self.convertCurrencyLabel.isEnabled = false
                 
+                    showAlertMessegeToUser.addAction(okayAction)
                 
-                if eventNameTextField.text != ""{
+                if eventNameTextField.text != ""  {
                     
-                }else{
-                    // self.showAlertMessageToUser(title: "Alert", messageToUser: "Fields should not be empty, Please enter given info...")
-                    // Show Alert Message to User As per you want
+                } else if eventNameTextField.text == "0" {
+                    
+                    alertController.actions[0].isEnabled = false 
                 }
                 
             })
@@ -266,16 +271,39 @@ extension DataViewController: UIPickerViewDelegate, UIPickerViewDataSource, UITa
             alertController.addTextField { (textField : UITextField!) -> Void in
                 textField.placeholder = "Enter Exchange Rate"
                 textField.keyboardType = UIKeyboardType.numberPad
+                textField.addTarget(self, action: #selector(self.textChanged), for: .editingChanged)
+                textField.delegate = self
+                
             }
+            
+            
+           
             
             alertController.addAction(saveAction)
             alertController.addAction(cancelAction)
-            
+            alertController.actions[0].isEnabled = false
             self.present(alertController, animated: true, completion: nil)
+            
+            
         }
     
     
     // Helper Methods
+    
+    func textChanged(_ sender: Any) {
+        let textField = sender as! UITextField
+        var resp: UIResponder! = textField
+        while !(resp is UIAlertController) { resp = resp.next }
+        let alert = resp as! UIAlertController
+        alert.actions[0].isEnabled = (textField.text != "" )
+    }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        guard CharacterSet(charactersIn: "0123456789").isSuperset(of: CharacterSet(charactersIn: string)) else {
+            return false
+        }
+        return true
+    }
     
     func hideCurrencyConverter() {
        
@@ -492,6 +520,10 @@ extension Array {
         return map { "\($0)" }.joined(separator: ", ")
     }
 }
+
+
+
+
 
 
 
