@@ -52,6 +52,7 @@ class DataViewController: UIViewController, UITextFieldDelegate {
         dataTableView.delegate = self
         // Functions from down below
         dataSource()
+        sizeFooterToFit()
         setNavBarTitle()
         setCustomBackImage()
         hideCurrencyConverter()
@@ -540,6 +541,12 @@ extension Array {
     }
 }
 
+extension DataViewController {
+    func sizeFooterToFit() {
+        dataTableView.tableFooterView = UIView(frame: .zero)
+        dataTableView.tableFooterView?.backgroundColor = .white
+    }
+}
 
 
 
